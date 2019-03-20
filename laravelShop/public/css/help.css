@@ -1,0 +1,170 @@
+@charset utf-8;
+blockquote, body,img, button, caption, dd, div, dl, dt, fieldset, figure, form, h1, h2, h3, h4, h5, h6, hr, html, input, legend, li, menu, ol, p, pre, table, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+abbr, body, fieldset, html, iframe, img {
+    border: 0;
+}
+html{
+	-webkit-font-smoothing: antialiased;
+
+}
+body {
+    width: 7.5rem;
+}
+body, button, input, keygen, legend, select, textarea {
+    outline: 0;
+}
+body{
+	overflow-x:hidden;
+	background: #f4f4f4;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-family: Arial,helvetica,"微软雅黑","Microsoft Yahei",sans-serif;
+    font-size: .32rem;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+header{
+	text-align: center;
+    height: 0.88rem;
+    line-height: .88rem;
+    position: relative;
+    background: #fff;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    z-index: 11;
+    border-bottom: 1px solid #eee;
+}
+.returnlink{
+	vertical-align: middle;
+    font-size: .32rem;
+    display: inline-block;
+    /*padding: 0 .3rem;*/
+    color: #f5f5f5;
+    width: .4rem;
+    height: .5rem;
+    background: url(../images/left.png) 4% no-repeat;
+    background-size: contain;
+    position: absolute;
+    left:0.27rem;
+    margin-top: .18rem
+}
+.headtitle{
+    width: 2.4rem;
+    position: absolute;
+    left:2.6rem;
+    font-size: .28rem;
+    color:#666;
+}
+.contact{
+    clear: both;
+    background: #fff;
+    width: 100%;
+    margin-bottom:.24rem;
+}
+.clearfix:after{
+    content:".";
+    display:block;
+    height:0;
+    clear:both;
+    visibility:hidden
+}
+.contactwrapp{
+    width:7rem;
+    padding:0.27rem;
+}
+aside{
+    width: 3.4rem;
+    height:1.65rem;
+    background: yellow;
+    display: inline-block;
+}
+aside.tel{
+    background: #eafff9;
+
+}
+aside.qq{
+    float:right;
+    background: #e7f8ff;
+}
+.telwrrap{
+    margin:.57rem 0 0 .28rem;
+}
+aside a{
+    display: inline-block;
+    width:.4rem;
+    height:.4rem;
+    float: left;
+    margin-top: .1rem;
+    margin-right:.33rem;
+}
+aside a img{
+    width: 100%;
+    height:100%;
+}
+.telcon{
+    float: left;
+    display: inline-block;
+    margin-top: -0.28rem;
+}
+.qqcon{
+    float: left;
+    display: inline-block;
+    height:.8rem;
+    margin-top:-0.08rem;
+}
+aside h4{
+    font-size: .18rem;
+    color:#666;
+    margin-bottom: .1rem;
+}
+aside .telcon .time{
+    display: inline-block;
+    margin-top: .06rem;
+}
+aside span{
+    font-size: .22rem;
+    color:#666;
+}
+ul{
+     list-style: none;
+}
+.listitems li{
+    height:1rem;
+    line-height: 1rem;
+    background:#fff;
+    padding-left:.27rem;
+    padding-right:.27rem;
+    margin-bottom:1px;  
+}
+a{
+    text-decoration: none;
+}
+.listitems a span{
+    display: inline-block;
+}
+.listitems a .itemsleft{
+    font-size: .26rem;
+    color:#666;
+    float:left;
+}
+.listitems a .itemsright{
+    font-size: .20rem;
+    color:#999;
+    float: right;
+    position: relative;
+    margin-right: .68rem;
+}
+.listitems a .itemsright i{
+    display: inline-block;
+    position: absolute;
+    vertical-align: middle;
+    height:.28rem;
+    width:.28rem;
+    top: .32rem;
+    right:-0.7rem;
+    background: url(../images/right.png) no-repeat center center;
+}

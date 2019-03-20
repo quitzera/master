@@ -1,0 +1,88 @@
+@charset "utf-8";
+.invit-box {
+	/*width: 100%;*/
+	
+	padding:30px;
+}
+.invit-wrapp{
+	padding-bottom: 14px;
+	border:1px solid #e4e4e4;
+	border-radius: 10px;
+	box-shadow: 2px 2px 20px #ddd;
+}
+.invit-top{
+	width: 100%;
+	padding:8px 0px;
+	background: #f22f2f;
+	border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.invit-top s{
+	display: inline-block;
+    height: 40px;
+    width: 40px;
+    background: url(../images/renminbi.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-right: 8px;
+    float: left;
+    margin-left: 16px;
+}
+.invit-middle {
+	text-align: center;
+	padding:36px 0px;
+
+}
+.invit-top p{
+	display: inline-block;
+    color: #fff;
+    line-height: 20px;
+    width: 74%;
+    text-align: left;
+}
+.invit-bottom ul{
+	margin-left: 5%;
+	margin-right: 5%;
+	text-align: center;
+}
+.invit-bottom li{
+	width: 30%;
+	text-align: center;
+	display: inline-block;
+}
+.invit-bottom li a{
+	display: inline-block;
+}
+.invit-bottom s{
+	display: block;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 4px;
+	
+}
+.invit-bottom .weibo s{
+	background: url(../images/weibo.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+.invit-bottom .wx s{
+	background: url(../images/weixin.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+.invit-bottom .quan s{
+	background: url(../images/pengyouquan.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+.invit-middle img{
+	width: 74%;
+}
+div.-mob-share-ui-button{
+	width: 60%;
+	margin:0 auto 10px;
+	border-radius: 6px;
+	padding:8px 0px;
+	font-size: 16px;
+	background: #f22f2f;
+}

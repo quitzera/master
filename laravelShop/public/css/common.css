@@ -1,0 +1,214 @@
+@charset 'utf-8';
+blockquote, body,img, button, caption, dd, div, dl, dt, fieldset, figure, form, h1, h2, h3, h4, h5, h6, hr, html, input, legend, li, menu, ol, p, pre, table, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+abbr, body, fieldset, html, iframe, img {
+    border: 0;
+}
+html{
+	-webkit-font-smoothing: antialiased;
+
+}
+body {
+    width: 7.5rem;
+}
+body, button, input, keygen, legend, select, textarea {
+    outline: 0;
+}
+body{
+	overflow-x:hidden;
+	background: #f4f4f4;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-family: Arial,helvetica,"微软雅黑","Microsoft Yahei",sans-serif;
+    font-size: .32rem;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+header{
+	text-align: center;
+    height: 0.88rem;
+    line-height: .88rem;
+    position: relative;
+    background: #fff;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    z-index: 11;
+    border-bottom: 1px solid #eee;
+}
+.returnlink{
+	vertical-align: middle;
+    font-size: .32rem;
+    display: inline-block;
+    /*padding: 0 .3rem;*/
+    color: #f5f5f5;
+    width: .4rem;
+    height: .5rem;
+    background: url(../images/left.png) 4% no-repeat;
+    background-size: contain;
+    position: absolute;
+    left:0.27rem;
+    margin-top: .18rem
+}
+.headtitle{
+    width: 2.4rem;
+    position: absolute;
+    left:2.6rem;
+    font-size: .28rem;
+    color:#666;
+}
+ul{
+	list-style: none;
+}
+.list ul li{
+	height: auto;
+	margin-bottom:1px; 
+	background: #fff;
+}
+.listtitle i{
+	display: inline-block;
+    /*position: absolute;*/
+    vertical-align: middle;
+    height:.28rem;
+    width:.28rem;
+    float:right;
+    background: url(../images/right.png) no-repeat center center;
+}
+.listtitle span{
+	display: block;
+	font-size:0.2rem;
+	padding: .27rem;
+	color:#666;
+}
+.listtitle .content{
+	background: #f5f5f5;
+	padding: .27rem;
+	display: none;
+	color:#999;
+	
+}
+.listtitle .content p{
+	font-size: .18rem;
+	line-height: .4rem;
+}
+.content h4{
+	margin-top: .2rem;
+
+}
+.agreement{
+    padding:.27rem;
+}
+.agreement p{
+    margin-bottom: .1rem;
+    text-align:justify;
+    text-justify:inter-ideograph;
+}
+.agreement h3{
+    font-size: .14rem;
+    font-weight: bold;
+    margin-top: .30rem;
+    margin-bottom: .10rem;
+}
+.textindent {
+    text-indent: 2em;
+}   
+.backimg{
+    width: 100%;
+    height: 2.99rem;
+    background: url(../images/background.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+.shoptip{
+    padding:.27rem;
+    background-color: #ffe9c9;
+}
+.shoptip h3{
+    font-size: .28rem;
+    color:#f22f2f;
+}
+.shoptip p{
+    font-size:.24rem;
+    color:#666;
+}
+.shoptip p.center{
+    margin-top: .3rem;
+    text-align: center;
+    color:#f22f2f;
+}
+#contentwrapp{
+    width: 100%;
+    margin:0 auto;
+}
+#contentwrapp img{
+    width: 100%;
+    height: auto;
+    margin-bottom: -4px;
+}
+#back-register{
+    height: 13.34rem;
+    width: 100%;
+    background: url(../images/register.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    overflow: hidden;
+}
+.re-wrapper{
+   width: 4.4rem;
+    height: 3.49rem;
+    margin: 0 auto;
+    /*background: #ccc;*/
+    /*opacity: 0.8;*/
+    margin-top: 8.9rem;
+    text-align: right;
+}
+.re-wrapper .phone{
+   width: 3.54rem;
+    height: .72rem;
+    margin: 0 auto;
+    margin-right: .26rem;
+    border-radius: .3rem;
+    background: #fff;
+    border: none;
+    padding-left:.2rem;
+    display: block;
+    font-size: .28rem;
+}
+.re-wrapper .message{
+   width: 1.9rem;
+    height: .74rem;
+    line-height: .72rem;
+    margin-right: .26rem;
+    border-radius: 0 .2rem .2rem 0;
+    background: #ff6c00;
+    border: none;
+    color: #fff;
+    margin-top: .25rem;
+    display: inline-block;
+    float: right;
+    font-size: .28rem;
+    text-align: center;
+}
+.re-wrapper .passcode{
+    height: .72rem;
+    width: 1.5rem;
+    padding-left:.2rem;
+    display: inline-block;
+    margin-top: .26rem;
+    border: none;
+    font-size: .28rem;
+    border-radius:.2rem 0 0 .2rem;
+}
+.re-wrapper .get{
+    display: block;
+    background: #ff6c00;
+    width: 4.4rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    opacity: 0;
+    margin-top: 0.7rem;
+    border-radius: .4rem;
+    text-align: center;
+}

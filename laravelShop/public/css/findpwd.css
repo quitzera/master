@@ -1,0 +1,15 @@
+@charset "utf-8";
+.registerCon li input{
+	width: 75%;
+	border:none;
+	border-bottom:1px solid #dedede;
+}
+.registerCon li a.sendcode{
+	padding:8px;
+	border:1px solid  #f22f2f;
+	color:#f22f2f;
+	border-radius: 6px;
+}
+.registerCon li input#verifcode{
+	width: 100%;
+}

@@ -1,0 +1,149 @@
+@charset "utf-8";
+body{
+	background: #f8f8f8;
+}
+.cardwrapper{
+	padding:10px 4px;
+	background-color: #f22f2f;
+	border-radius: 8px;
+}
+.cardinfo{
+	padding-left: 10px;
+}
+.cardinfo p,.cardsort,.cardinfo span{
+	color:#fff;
+}
+.cardinfo p{
+	font-size: 18px;
+}
+.cardinfo .cardsort{
+	margin:8px 0px;
+}
+.cardinfo span {
+	float: right;
+}
+.card-bottom {
+	width: 100%;
+	background-color: #fff;
+	position: fixed;
+	bottom:0;
+	left: 0;
+	padding:10px;
+}
+.card-bottom span{
+	display: block;
+	font-size: 16px;
+	float: left;
+	color: #666;
+}
+.card-bottom s{
+	display: block;
+	margin-right: 20px;
+	width: 12px;
+	height: 12px;
+	float: right;
+	margin-top: 4px;
+	border:2px solid #999;
+	border-color:#999 #999 transparent transparent;
+	transform:rotate(45deg);
+	-ms-transform:rotate(45deg); 	/* IE 9 */
+	-moz-transform:rotate(45deg); 	/* Firefox */
+	-webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+	-o-transform:rotate(45deg); 	
+}
+/*填写银行卡信息*/
+.bondwrapper p{
+	background-color: #f4f4f4;
+	padding:8px;
+	color:#666;
+	font-size: 14px;
+
+}
+.cardinfo{
+	/*background-color: #fff;*/
+	padding-left: 20px;
+}
+.cardinfo li{
+	height: 42px;
+	line-height: 42px;
+	font-size: 14px;
+
+}
+.cardinfo li .choose{
+	float: none;
+	color:blue;
+	/*margin-left: 10px;*/
+}
+.cardinfo li em{
+	display: inline-block;
+	width:64px;
+	font-size:16px;
+}
+.cardinfo li input{
+	width: 60%;
+    font-size: 14px;
+    height: 36px;
+    background: none;
+}
+.cardinfo li span{
+	float: none;
+	color:blue;
+}
+.mr14{
+	margin-left: 18px;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #999;
+    font-size: 14px;  
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #999;
+    font-size: 14px;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    color: #999;
+    font-size: 14px;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: #999;
+    font-size: 14px;
+}
+.protocal{
+	/*position: relative;*/
+	padding-left: 10px;
+}
+.protocal .gou{
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: url(../Images/xuanzhong.png);
+    background-repeat: no-repeat;
+    background-size: 220% 100%;
+    background-position: -24px 0px;
+    float: left;
+    margin-top: 7px;
+}
+.protocal p{
+	width: 70%;
+	float: left;
+	background-color: #f8f8f8;
+	color:blue;
+}
+.next span{
+	width: 90%;
+	display: block;
+	color:#fff;
+	font-size: 18px;
+	background-color: #f22f2f;
+	padding:8px 0px;
+	margin: 6px auto;
+	border-radius:26px;
+	text-align: center;
+
+
+}

@@ -1,0 +1,71 @@
+@charset "utf-8";
+.contact{
+    clear: both;
+    background: #fff;
+    width: 100%;
+    margin-bottom:.24rem;
+}
+.clearfix:after{
+    content:".";
+    display:block;
+    height:0;
+    clear:both;
+    visibility:hidden
+}
+.contactwrapp{
+    width:7rem;
+    padding:0.27rem;
+}
+aside{
+    width: 3.4rem;
+    height:1.65rem;
+    background: yellow;
+    display: inline-block;
+}
+aside.tel{
+    background: #eafff9;
+
+}
+aside.qq{
+    float:right;
+    background: #e7f8ff;
+}
+.telwrrap{
+    margin:.57rem 0 0 .28rem;
+}
+aside a{
+    display: inline-block;
+    width:.4rem;
+    height:.4rem;
+    float: left;
+    margin-top: .1rem;
+    margin-right:.33rem;
+}
+aside a img{
+    width: 100%;
+    height:100%;
+}
+.telcon{
+    float: left;
+    display: inline-block;
+    margin-top: -0.28rem;
+}
+.qqcon{
+    float: left;
+    display: inline-block;
+    height:.8rem;
+    margin-top:-0.08rem;
+}
+aside h4{
+    font-size: .18rem;
+    color:#666;
+    margin-bottom: .1rem;
+}
+aside .telcon .time{
+    display: inline-block;
+    margin-top: .06rem;
+}
+aside span{
+    font-size: .22rem;
+    color:#666;
+}

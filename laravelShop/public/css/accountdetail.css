@@ -1,0 +1,111 @@
+@charset "utf-8";
+body{
+	background:#f8f8f8;
+}
+.total-money{
+	height: 100px;
+    line-height: 100px;
+    background: #fbfbe8;
+    text-align: center;
+}
+.total-money p.m-title{
+	padding-top: 24px;
+	color: #f22f2f;
+}
+.total-money p{
+	font-size: 16px;
+	color:#999;
+	line-height: 26px;
+}
+.a-detail{
+	padding:10px;
+    background: #fff;
+}
+fieldset {
+    border:0;
+    border-top:1px dashed #666;
+    margin-bottom: 20px;
+}
+legend { 
+    color: #999;
+    /* for IE */
+    background-color: #fff;
+}
+.detail-items .items-con{
+	display:block;
+	padding:4px 0px;
+	
+}
+.detail-items .items-con div.fl{
+	width: 76%;
+	
+}
+.detail-items .items-con div.fl p{
+	font-size: 14px;
+	padding-top: 6px;
+	color: #666;
+}
+.detail-items .items-con div.fr p{
+	font-size: 16px;
+	line-height: 60px;
+	
+}
+.detail-items .consume .price p{
+	color:#f22f2f;
+}
+.detail-items .income .price p{
+	color:#0f9b0f;
+}
+
+.detail-items li{
+	border-bottom:1px dotted #ccc; 
+}
+.listtab a {
+    display: inline-block;
+    float: left;
+    background: #fff;
+    height: 42px;
+    line-height: 42px;
+    width: 50%;
+    font-size: 16px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+.listtab a.current {
+    border-bottom: 2px solid #f22f2f;
+}
+.footer{
+	background: #fff;
+}
+.footer a{
+	display: block;
+    float: left;
+    width: 49%;
+    height: 32px;
+    line-height: 32px;
+    margin-top: 6px;
+    text-align: center;
+    color: #888;
+    font-size: 16px;
+}
+.footer li.f_home a{
+	border-right:1px solid #e4e4e4;
+}
+.default{
+	text-align: center;
+    font-size: 14px;
+    padding: 130px 0;
+    color: #999;
+}
+.default s{
+	display: block;
+    margin: 0 auto 10px;
+    width: 202px;
+    height: 195px;
+    background: url(../images/default.png);
+    background-size: 100% 100%;
+}
+.transfer{
+	padding:10px;
+	background:#fff;
+}

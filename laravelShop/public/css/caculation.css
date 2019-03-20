@@ -1,0 +1,156 @@
+@charset 'utf-8';
+.content{
+	/*width: 100%;*/
+	padding:.27rem;
+	background: #fef4f4;
+	height:4.28rem; 	
+
+}
+.clearfix:before {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.content li{
+	margin:0 auto;
+	text-align: center;
+}
+.content li.result{
+	width: 1.96rem;
+	height: .92rem;
+	line-height: .44rem;
+	border:1px solid #ff0000;
+	border-radius:5px;
+	margin:.4rem  auto .1rem;
+	text-align: center;	
+}
+.content li p,.content li span{
+	color:#ff0000;
+	font-size: .2rem;
+	font-weight: bold;
+}
+.content li.equal span{
+	font-size:.38rem;
+}
+.step{
+	margin:.2rem auto .36rem;
+}
+.step li{
+	float:left;
+	color:#ff0000;
+
+}
+.step li.fu{
+	height: .9rem;
+	line-height: .90rem;
+	font-size: .38rem;
+	color:#ff0000;
+}
+.step ul{
+	clear:both;
+}
+.step li.border{
+	width: 1.93rem;
+	height: .9rem;
+	border-radius: 5px;
+	border:1px solid #ff0000;
+	line-height: .44rem;
+}
+.contentwrapp p.lip{
+	color: #ff0000;
+	font-size:.22rem;
+	font-weight: bold;
+	line-height: .4rem;
+}
+.table-wrapp li{
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	margin-top: -1px;
+}
+.table-wrapp li span{
+	display:block;
+	height:.8rem;
+	line-height: .8rem;
+	width: 25%;
+	float:left;
+	box-sizing:border-box;
+	text-align: center;
+	color:#ababab;
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.table-wrapp li span{
+	font-size:.20rem;
+}
+.table-wrapp li.title span{
+	font-size:.22rem;
+}
+.table-wrapp li.title .change{
+	border-right: 1px solid #eee;
+	border-left:1px solid #eee; 
+	width: 25%;
+}
+.table-wrapp li span.time{
+	width:50%;
+	text-align: left;
+	margin-left: -1px;
+	text-indent: 0.34rem;
+}
+.table-wrapp li span.red{
+	color:#f22f2f;
+	margin-left:-1px;
+}
+.table-wrapp li span.left{
+	text-align: left;
+}
+.table-wrapp li span.right{
+	border-right:1px solid #eee; 
+}
+.table-wrapp li span.name{
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow: hidden;
+}
+.table-wrapp{
+	background: #fff;
+	height:9rem;
+	overflow: hidden;
+}
+.zhan{
+	height:.8rem;
+	line-height: .8px;
+	background: #eee;
+	text-align: center;
+	color:#f22f2f;
+}
+.zhan span{
+	display: inline-block;
+	height:.8rem;
+	line-height:.8rem;
+	position: relative;
+	font-size: .24rem;
+}
+.zhan i{
+	display: inline-block;
+	vertical-align: middle;
+	width:.33rem;
+	height:.33rem; 
+	background: url(../images/upanddown.png);
+	background-repeat: no-repeat;
+	background-position:-0.40rem 0px;
+	background-size: 220%;
+	margin-right: .2rem;
+	position: absolute;
+	top: .24rem;
+    left: -0.4rem;
+}

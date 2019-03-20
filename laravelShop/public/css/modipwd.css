@@ -1,0 +1,96 @@
+@charset "utf-8";
+body{
+	background: #f4f4f4;
+}
+.red{
+	color:#f22f2f;
+}
+.registerCon{
+	padding:0px;
+}
+.registerCon ul{
+	padding:15px;
+	/*background-color: */
+}
+.registerCon li.phone{
+	color:#666;
+}
+.registerCon li.phone i{
+	margin-left: 18px;
+}
+.registerCon li a.orangeBtn{
+	margin-bottom: 0px;
+	margin-top:18px;
+}
+.registerCon li input {
+    padding-left: 20px;
+}
+.registerCon li .layui-unselect{
+	float:right;
+}
+.layui-form-switch {
+    position: relative;
+    height: 16px;
+    line-height: 16px;
+    width: 30px;
+    margin-top: 0px;
+    float: right;
+ }
+ .layui-form-switch i {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+ }
+ .layui-form-onswitch i {
+    left: 25px;
+    background-color: #fff;
+}
+.registerCon .switch{
+	text-align: left;
+	padding:16px;
+	background-color: #fff;
+}
+.registerCon .modify{
+	margin-top: 32px;
+	background: #fff;
+	text-align: left;
+	padding:16px;
+}
+.registerCon .modify s{
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	float: right;
+	border:2px solid #ccc;
+	transform: rotate(45deg);
+	border-color:#ccc #ccc transparent transparent;
+}
+.regwrapp div{
+	text-align: left;
+	padding:10px;
+	background: #fff;
+	border-bottom: 1px solid #f4f4f4;
+}
+.registerCon div em{
+	display: inline-block;
+	width: 88px;
+}
+.registerCon .account {
+	background: #f4f4f4;
+	
+}
+.registerCon .save{
+	width: 80%;
+	margin:20px auto;
+	background: #f22f2f;
+	color:#fff;
+	text-align: center;
+	border-radius: 36px;
+}
+.registerCon li.auth{
+	text-align: center; 
+}
+.registerCon li.auth em{
+	font-size: 18px;
+}
+

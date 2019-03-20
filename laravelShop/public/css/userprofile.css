@@ -1,0 +1,91 @@
+@charset "utgf-8";
+body{
+	background: #fff;
+}
+
+.hidehead{
+	position: fixed;
+	height: 50px;
+	line-height:50px;
+	display: block;
+	width: 100%;
+	background: #f22f2f;
+	text-align: center;
+	/*z-index: -1;*/
+	/*opacity: 0;*/
+	background:rgba(242,47,47,0); /*实现FF背景透明，文字不透明*/
+}
+.hidehead span.title{
+	display: none;
+}
+
+ .profilehead{
+
+ 	height: 220px;
+ 	background: url(../images/pbg.png);
+ 	background-size: 100% 100%;
+ 	padding:18px 20px;
+ }
+.hidehead em{
+ 	position: absolute;
+ 	top:-2px;
+ 	left: 6px;
+ 	display:inline-block;
+ 	width: 14px;
+ 	height: 14px;
+ 	margin:18px 0px 0px 18px;
+ 	border:2px solid #fff;
+ 	border-color: #fff #fff transparent transparent;
+ 	transform: rotate(-135deg);
+ }
+  .hidehead span{
+  	height: 50px;
+  	line-height: 50px;
+  	display: inline-block;
+  	color:#fff;
+  	font-size: 18px;
+  }
+  .profilehead div.userimg{
+  	margin:20px auto;
+  	text-align: center;
+
+  }
+  .profilehead div.userimg img{
+  	width:100px;
+  	height: 100px;
+  	border-radius: 100%;
+  }
+.profilehead div.title{
+	margin:26px auto;
+}
+.profilehead div.title p{
+	text-align: center;
+	font-size: 26px;
+	color:#fff;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.listtab.fix{
+	position: fixed;
+	width: 102%;
+	margin-top: -206px;
+}
+.listtab a{
+	display: block;
+	float: left;
+	width: 33%;
+	color:#666;
+	font-size: 16px;
+	text-align: center;
+	padding:14px 0px;
+	background:#f8f8f8;
+	
+}
+.listtab a.active{
+	border-bottom: 2px solid #f22f2f;
+}
+.swiper-container{
+	position: absolute;
+	z-index:-1;
+}

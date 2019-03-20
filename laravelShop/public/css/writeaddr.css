@@ -1,0 +1,70 @@
+@charset "utf-8";
+.list-block li{
+	margin:0px 16px;
+	border-bottom: 1px solid #f4f4f4;
+}
+.item-content div{
+	float: left;
+	font-size: 16px;
+	padding:6px 0px;
+}
+.item-content .item-title{
+	width:96px;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    /*color: #f00;*/
+    font-size: 16px;  
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    /*color: #f00;*/
+    font-size: 16px;
+}
+input{
+	font-size: 16px;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    /*color: #f00;*/
+    font-size: 16px;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    /*color: #f00;*/
+    font-size: 16px;
+}
+.item-content div.layui-unselect{
+	float: right;
+}
+.layui-form-switch{
+    position: relative;
+    height: 16px;
+    line-height: 16px;
+    width: 30px;
+    margin-top: 0px;
+    float: right;
+}
+.addrcon ul{
+	padding:0 10px;
+}
+.addrcon li{
+	padding:14px 10px;
+
+	border-bottom: 1px solid #f4f4f4;
+}
+.addrcon li em{
+	display: inline-block;
+	font-size: 16px;
+	width: 80px;
+}
+div .setnormal{
+	height: 40px;
+	line-height: 40px;
+	padding:0px 10px;
+	border-bottom: 1px solid #f8f8f8;
+}
+.addrcon ul li input{
+	width: 78%;
+}

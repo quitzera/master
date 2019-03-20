@@ -1,0 +1,65 @@
+@charset "utf-8";
+body{
+	color: #666;
+}
+.fundwrapper .card{
+	padding:14px;
+}
+.cardleft p{
+	height: 64px;
+	line-height: 64px;
+	margin-right: 22px;
+
+}
+.cardright p,.cardright h4{
+	height:32px;
+	line-height: 32px;
+}
+.cardright p{
+	color: #f22f2f;
+}
+.cardright p input{
+	font-size: 14px;
+    color: #666;
+}
+.card .lip{
+	margin:26px 0px;
+}
+.card .money{
+	border-bottom: 1px solid #e4e4e4;
+}
+.card .money i{
+	display: inline-block;
+	font-size: 32px;
+	float: left;
+}
+.card .money input{
+	height:48px;
+	float: left;
+	font-size: 28px;
+}
+.card .info{
+	margin-top: 10px;
+}
+.card .info i{
+	color:#f22f2f;
+}
+.card .info a{
+	display: block;
+	width: 100%;
+	background-color: #ccc;
+	color:#fff;
+	text-align: center;
+	border-radius: 6px;
+	padding:6px 0px;
+	margin:16px auto;
+	font-size: 18px;
+}
+.card .info a.current{
+	background:#f22f2f;
+}
+.card .info span{
+	display: block;
+	width: 100%;
+	text-align: center;
+}

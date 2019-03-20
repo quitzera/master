@@ -1,0 +1,20 @@
+@charset "utf-8";
+dl.phone .txtAccount{
+	border:none;
+
+}
+dl.phone .txtAccount input{
+	width: 70%;
+	float: left;
+	border:1px solid #dedede;
+	border-radius: 5px 5px 5px 5px;
+}
+dl.phone .txtAccount a#btn{
+	display: inline-block;
+	float: right;
+	padding: 14px 8px;
+	color: #fff;
+	background:#f22f2f;
+	border-radius: 6px;
+
+}

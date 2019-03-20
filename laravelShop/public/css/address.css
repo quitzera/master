@@ -1,0 +1,46 @@
+@charset "utf-8";
+body{
+	background:#f8f8f8;
+}
+.addr-wrapp li{
+	margin-bottom: 8px;
+}
+.addr-list{
+	margin-bottom: 10px;
+	background: #fff;
+	padding: 10px 10px 4px;
+}
+.addr-wrapp span,.addr-wrapp p{
+	font-size: 14px;
+	color:#666;
+}
+.addr-wrapp li.a-set{
+	position: relative;
+	border-top:1px solid #e4e4e4;
+}
+.addr-wrapp li s{
+	width: 19px;
+    height: 18px;
+    float: left;
+    margin-right: 16px;
+    background-position: 0 -327px;
+}
+.addr-wrapp li.a-set s{
+	background: url(../Images/xuanzhong.png);
+    background-repeat: no-repeat;
+    background-size: 228% 100%;
+    background-position: -24px 0px;
+}
+.addr-wrapp li.a-set s.z-set{
+	background-position: -24px 0px;
+}
+.addr-wrapp li.a-set s.z-defalt{
+	background-position: 0px 0px;
+}
+
+.addr-wrapp li.a-set{
+	padding-top: 10px;
+}
+.addr-wrapp li.a-set .fr .edit{
+	margin-right:30px;
+}

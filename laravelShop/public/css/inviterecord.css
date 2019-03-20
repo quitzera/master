@@ -1,0 +1,15 @@
+@charset "utf-8";
+.member-wrapper{
+	padding-left:10px;
+	padding-right:10px;
+}
+.member-wrapper p{
+	color:#f22f2f;
+	font-size: 16px;
+	padding:8px 0px;
+}
+.member-wrapper li{
+	height: 40px;
+	line-height: 40px;
+	border-top:1px dotted #ccc;
+}

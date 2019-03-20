@@ -1,0 +1,229 @@
+@charset "utf-8";
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+}
+body{
+	background: #f8f8f8;
+}
+section{
+	width: 100%;
+}
+body{
+	font-size: 12px;
+}
+*{
+	margin:0px;
+	padding:0px;
+}
+a{
+	text-decoration: none;
+}
+em{
+	font-style: normal;
+}
+.gray9 {
+    color: #999;
+}
+.pay-wrapper{
+	width: 100%;
+	text-align: center;
+	padding-top: 32px;
+    padding-bottom: 32px;
+    background: #fff;
+}
+.pay-wrapper span{
+	display: block;
+}
+.pay-wrapper i{
+	display: inline-block;
+	width: 45px;
+	height: 45px;
+	background: url(../images/duigou.png);
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.pay-wrapper p{
+	color: #82d040;
+    font-size: 22px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 16px;
+}
+.pay-wrapper .pay-btn{
+	width: 100%;
+}
+.pay-wrapper .pay-btn a{
+	display: inline-block;
+	padding:6px 10px;
+	background: orange;
+	color:#fff;
+	font-size: 16px;
+	border: 1px solid orange;
+}
+.pay-wrapper .pay-btn a.watch{
+	margin-right: 20px;
+	background: #fff;
+	color:orange;
+	
+}
+/*人气推荐*/
+.line{
+	height: 38px;
+	width: 100%;
+	background:#f8f8f8;
+	background-size:#f8f8f8;
+}
+.hot-content{
+	width: 80%;
+	height: 38px;
+	line-height: 38px;
+	position: relative;
+	margin:0 auto;
+	text-align: center;
+}
+.hot-content .l-left{
+	width: 35%;
+	border-top: 1px solid #e4e4e4;
+	position: absolute;
+	left: 0;
+	top:20px;
+}
+.hot i{
+	width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    display: inline-block;
+    background: url(../images/home-btn-recommend.png) no-repeat;
+    background-size: 100%;
+}
+.guess i{
+	width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    display: inline-block;
+    background: url(../images/home-btn-goods.png) no-repeat;
+    background-size: 100%;
+}
+.hot-content .l-right{
+	width: 35%;
+	border-top: 1px solid #e4e4e4;
+	position: absolute;
+	right: 0;
+	top:20px;
+}
+.goods-wrap {
+	width:100%;
+}
+.goods-list {
+	width:100%;
+	background-color:#fff;
+}
+.goods-list li {
+	padding:10px;
+	float:left;
+	box-sizing:border-box;
+	width:50%;
+	height:216px;
+	position:relative;
+	overflow:hidden;
+}
+.goods-list li:before {
+	content:'';
+	position:absolute;
+	width:1px;
+	height:100%;
+	border-right:1px solid #dedede;
+	background-color:transparent;
+	top:0;
+	right:0;
+	-webkit-transform:scaleX(0.5);
+	transform:scaleX(0.5);
+	-webkit-transform-origin:100% 0;
+	transform-origin:100% 0;
+	z-index:1;
+}
+.goods-list li:after {
+	content:'';
+	position:absolute;
+	width:100%;
+	height:1px;
+	background-color:#dedede;
+	bottom:0;
+	left:0;
+	-webkit-transform:scaleY(0.5);
+	transform:scaleY(0.5);
+	-webkit-transform-origin:0 1px;
+	transform-origin:0 1px;
+	z-index:1;
+}
+.goods-list li:nth-of-type(even):before {
+	display:none;
+}
+.goods-list .g-pic img {
+	display:block;
+	width:100px;
+	height:100px;
+	margin:0 auto;
+}
+.goods-list .g-name {
+	height:18px;
+	line-height:18px;
+	font-size:12px;
+	color:#666;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	word-break:break-all;
+	margin:8px 0 2px;
+}
+.goods-list ins {
+	text-decoration:none;
+	line-height:16px;
+}
+.goods-wrap .Progress-bar {
+	margin-top:7px;
+}
+.goods-wrap .Progress-bar .u-progress {
+	height:6px;
+}
+.goods-wrap .btn-wrap {
+	padding-right:40px;
+	position:relative;
+	height:30px;
+	width:100px;
+	margin:4px auto 0;
+}
+.goods-wrap .buy-btn {
+	display:block;
+	width: 86px;
+	height:28px;
+	line-height:28px;
+	text-align:center;
+	border:1px solid #f22f2f;
+	color:#f22f2f;
+	border-radius:16px;
+	font-size: 14px;
+}
+
+.goods-wrap .gRate {
+	width:36px;
+	height:36px;
+	position:absolute;
+	top:-3px;
+	right:0;
+}
+.goods-wrap .gRate a {
+	display:block;
+	width:30px;
+	height:30px;
+	border-radius:50%;
+	background-color:#f60;
+	position:relative;
+	top:3px;
+	left:3px;
+	background: url(../images/buycart.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
