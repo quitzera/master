@@ -75,7 +75,7 @@
                         <div class="goodList mui-scroll">
                             <ul id="ulGoodsList" class="mui-table-view mui-table-view-chevron">
                                 @foreach($data as $v)
-                                <li id="{{$v->goods_id}}">
+                                <li goods_id="{{$v->goods_id}}">
                                     <span class="gList_l fl">        
                                         <a href = '/detail/{{$v->goods_id}}'><img class="lazy" data-original="/uploads/{{$v->goods_img}}"></a>
                                     </span>    
@@ -95,7 +95,7 @@
                                                     <li class="P-bar03"><em>{{$v->goods_num}}</em>剩余</li>
                                                 </ul>
                                             </div>           
-                                            <a codeid="12785750" class="" canbuy="646"><s></s></a>        
+                                            <a codeid="12785750" class="intoCart" canbuy="646"><s></s></a>
                                         </div>    
                                     </div>
                                 </li>
@@ -274,6 +274,17 @@
             }
             refresh();
         });
+
+        $(document).on('click','.intoCart',function(){
+            var goods_id = $(this).parents('li').attr('goods_id');
+            $.post(
+                "/intoCart"
+                ,{goods_id,goods_id}
+                ,function(res){
+                    console.log(res)
+                }
+            )
+        })
     })
 </script>
 </body>

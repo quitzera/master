@@ -166,7 +166,7 @@
         <div class="goods-wrap marginB">
             <ul id="ulGoodsList" class="goods-list clearfix">
 				@foreach($hot as $v)
-            	<li id="23558" codeid="12751965" goodsid="23558" codeperiod="28436">
+            	<li id="23558" codeid="12751965" goods_id="{{$v->goods_id}}" codeperiod="28436">
             		<a href="detail/{{$v->goods_id}}" class="g-pic">
             			<img class="lazy" name="goodsImg" data-original="/uploads/{{$v->goods_img}}" width="136" height="136">
             		</a>
@@ -182,7 +182,7 @@
             		</div>
             		<div class="btn-wrap" name="buyBox" limitbuy="0" surplus="58" totalnum="1625" alreadybuy="1567">
             			<a href="javascript:;" class="buy-btn" codeid="12751965">立即潮购</a>
-            			<div class="gRate" codeid="12751965" canbuy="58">
+            			<div class="gRate intoCart" codeid="12751965" canbuy="58">
             				<a href="javascript:;"></a>
             			</div>
             		</div>
@@ -193,5 +193,19 @@
 		</div>
 		<script>
 			$(".m-block-header").hide();
+			$(function(){
+				$('#fuck').attr('href','');
+				$(document).on('click','.intoCart',function(){
+					var goods_id = $(this).parents('li').attr('goods_id');
+					$.post(
+							"/intoCart"
+							,{goods_id,goods_id}
+							,function(res){
+								console.log(res)
+							}
+					)
+				})
+			})
+
 		</script>
 @endsection

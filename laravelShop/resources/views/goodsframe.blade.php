@@ -1,5 +1,5 @@
 @foreach($data as $v)
-    <li id="{{$v->goods_id}}">
+    <li goods_id="{{$v->goods_id}}">
                                     <span class="gList_l fl">
                                         <a href = '/detail/{{$v->goods_id}}'><img class="lazy" data-original="/uploads/{{$v->goods_img}}"></a>
                                     </span>
@@ -19,7 +19,7 @@
                         <li class="P-bar03"><em>{{$v->goods_num}}</em>剩余</li>
                     </ul>
                 </div>
-                <a codeid="12785750" class="" canbuy="646"><s></s></a>
+                <a codeid="12785750" class="intoCart" canbuy="646"><s></s></a>
             </div>
         </div>
     </li>

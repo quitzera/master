@@ -11,7 +11,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="css/mui.min_1.css">
+    <link id='fuck' rel="stylesheet" href="css/mui.min_1.css">
     <link rel="stylesheet" href="{{url('layui/css/layui.css')}}">
     <link rel="stylesheet" href="{{url('layui/css/layui.css')}}">
     <link href="{{url('css/comm.css')}}" rel="stylesheet" type="text/css" />

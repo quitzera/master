@@ -32,12 +32,12 @@
                 <!-- 产品信息 -->
                 <div class="pro_info">
                     <h2 class="gray6">
-                        
+
                         {{$info->goods_name}}<br/>
-                        <br><span>{!! $info->goods_desc !!}</span>
+
                     </h2>
                     <div class="purchase-txt gray9 clearfix">
-                        价值：￥1{{$info->self_price}}
+                        价值：￥{{$info->self_price}}
                     </div>
                     <div class="clearfix">
                         
@@ -58,7 +58,7 @@
                     </div>
                     <!--本商品已结束-->
                     
-                </div>
+                </div><br>
                 <!--揭晓倒计时-->
                 <div id="divLotteryTime" class="Countdown-con">
 
@@ -68,7 +68,7 @@
                     <div class="ann_btn">
                         <a href="">图文详情<s class="fr"></s></a>
                     </div>
-                </div>
+                </div><span style="margin:0 0 0 15px;align:center;display:block;text-height:10pxZ">{!! $info->goods_desc !!}</span>
                 <div class="listtab tabs clearfix">
                     <a href="javascript:;" class="active">参与记录</a>
                     <a href="javascript:;">历史获得者</a>

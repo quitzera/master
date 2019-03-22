@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <title>结算支付</title>
-    <meta content="app-id=984819816" name="apple-itunes-app" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no, maximum-scale=1.0" />
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-    <meta content="telephone=no" name="format-detection" />
+@extends('master')
+@section('content')
     <link href="css/comm.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/cartlist.css">
     <link rel="stylesheet" href="layui/css/layui.css">
@@ -15,61 +7,31 @@
 <body>
     
 <!--触屏版内页头部-->
-<div class="m-block-header" id="div-header">
-    <strong id="m-title">结算支付</strong>
-    <a href="javascript:history.back();" class="m-back-arrow"><i class="m-public-icon"></i></a>
-    <a href="/" class="m-index-icon"><i class="m-public-icon"></i></a>
-</div>
+
 <div>
         <div class="g-pay-lst">
             <ul>
+                @foreach($data as $v)
                 <li>
                     <a href="">
                         <span>
-                            <img src="https://img.1yyg.net/GoodsPic/pic-200-200/20160908092215288.jpg" border="0" alt="">
+                            <img src="/uploads/{{$v->goods_img}}" border="0" alt="">
                         </span>
                         <dl>
                             <dt>
                                 
-                                    (第449560潮)苹果（Apple）iPhone 7 Plus 128G版 4G手机
+                                    {{$v->goods_name}}
                             </dt>
-                            <dd><em class="price">1</em>人次/<em>￥1.00</em></dd>
+                            <dd><em class="price">{{$v->buy_num}}</em>人次/<em>￥{{$v->self_price}}.00</em></dd>
                         </dl>
                     </a>
                 </li>
-                <li>
-                    <a href="">
-                        <span>
-                            <img src="https://img.1yyg.net/GoodsPic/pic-200-200/20160908092215288.jpg" border="0" alt="">
-                        </span>
-                        <dl>
-                            <dt>
-                                
-                                    (第449560潮)苹果（Apple）iPhone 7 Plus 128G版 4G手机
-                            </dt>
-                            <dd><em class="price">1</em>人次/<em>￥1.00</em></dd>
-                        </dl>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span>
-                            <img src="https://img.1yyg.net/GoodsPic/pic-200-200/20160908092215288.jpg" border="0" alt="">
-                        </span>
-                        <dl>
-                            <dt>
-                                
-                                    (第449560潮)苹果（Apple）iPhone 7 Plus 128G版 4G手机
-                            </dt>
-                            <dd><em class="price">1</em>人次/<em>￥1.00</em></dd>
-                        </dl>
-                    </a>
-                </li>
+            @endforeach
             </ul>
             <div id="divMore">
                 
             </div>
-            <p class="gray9">总需支付金额：<em class="orange"><i>￥</i>1.00</em></p>
+            <p class="gray9">总需支付金额：<em class="orange"><i>￥</i>{{$price}}.00</em></p>
         </div>
 
         <div class="other_pay marginB">
@@ -81,7 +43,7 @@
             	<i></i>账户总额：<span class="gray9">(￥<em>0.00</em>)</span><em class="orange fr"></em>
             </a>
             <a href="javascript:;" class="wzf checked">
-            	<b class="z-set"></b>第三方支付<em class="orange fr"><span class="colorbbb">需要支付&nbsp;</span><b>￥</b>1.00</em>
+            	<b class="z-set"></b>第三方支付<em class="orange fr"><span class="colorbbb">需要支付&nbsp;</span><b>￥</b>{{$price}}.00</em>
             </a>
             <div class="net-pay">
                 <a href="javascript:;" class="checked" id="jdPay">
@@ -91,19 +53,18 @@
                 <a href="javascript:;" id="jdPay">
                 	<span class="kq"></span>
                 	<b class="z-set"></b>
+                </a>         <a style="border:1px solid white;color:white;text-align: center;border-radius: 10px;background-color:orangered;display: block" id="btnPay" href="javascript:;" class="btn-large">立即支付
                 </a>
             </div>
-            <div class="paylip">我们提倡理性消费</div>
+
+            <div class="paylip">我们提倡有钱任性，你要敢买我就敢送</div>
         </div>
-        <div class="g-Total-bt">
-            <dd><a id="btnPay" href="javascript:;" class="orangeBtn fr w_account">立即支付</a></dd>
-        </div> 
 
 
         <div class="paywrapp" style="display: none">
             <span class="lip">请输入支付密码</span>    
             <span class="title">潮人购充值</span>
-            <span class="money">￥<i>1.00</i></span>
+            <span class="money">￥<i>{{$price}}.00</i></span>
             <form action="" method="post" name="payPassword" id="form_paypsw">
                 <div id="payPassword_container" class="alieditContainer clearfix" data-busy="0">
                     <div class="i-block" data-error="i_error">
@@ -144,8 +105,8 @@
 			total +=parseInt($('.g-pay-lst li').eq(i).find('dd em.price').text());
 
 		}
-		$('.gray9 .orange').html('<i>￥</i>'+total.toFixed(2));
-		$('.wzf .orange').html('<span class="colorbbb">需要支付&nbsp;</span><b>￥</b>'+total.toFixed(2));
+
+
 
 		// 判断选择余额支付还是潮购值支付
 		var chaomoney =parseInt($('.other_pay .chaomoney span.gray9 em').text())/100;
@@ -255,7 +216,10 @@
             content: $('.paywrapp')
         })
     })
-        
+
+    $(function(){
+        $("#fuck").attr('href','');
+    })
 </script>
 </body>
-</html>
+@endsection

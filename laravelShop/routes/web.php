@@ -34,4 +34,8 @@ Route::group(['middleware'=>'check'],function(){
     Route::get('cart','Index\\IndexController@cart');
     Route::get('set','Index\\IndexController@set');
     Route::post('calculate','Index\\IndexController@calculate');
+    Route::post('intoCart','Index\\IndexController@intoCart');
+    Route::post('getPrice','Index\\IndexController@getPrice');
+    Route::post('cartDel','Index\\IndexController@cartDel');
+    Route::get('payment','Index\\IndexController@payment');
 });

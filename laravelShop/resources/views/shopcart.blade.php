@@ -19,16 +19,15 @@
         <div class="g-Cart-list">
             <ul id="cartBody">
                 @foreach($data as $v)
-                <li cart_id="{{$v->id}}">
+                <li cart_id="{{$v->id}}" goods_id="{{$v->goods_id}}">
                     <s class="xuan current"></s>
                     <a class="fl u-Cart-img" href="/v44/product/12501977.do">
                         <img src="/uploads/{{$v->goods_img}}" border="0" alt="">
                     </a>
-                    <div class="u-Cart-r">
+                    <div class="u-Cart-r"> <span style="display: inline;float: right"> &nbsp; &nbsp; {{$v->goods_num}}<span  class="price"> &nbsp;￥{{$v->self_price}}</span></span>
+                        <span style="display: inline;float: right">剩余<span  class="last">价格</span></span>
+
                         <a href="/v44/product/12501977.do" class="gray6">{{$v->goods_name}}</a>
-                        <span class="gray9">
-                            <em>剩余<span  class="last">{{$v->goods_num}}</span></em>
-                        </span>
                         <div class="num-opt">
                             <em class="num-mius min"><i></i></em>
                             <input class="text_box" name="num" maxlength="6" type="text" value="{{$v->buy_num}}" codeid="12501977">
@@ -45,12 +44,12 @@
             <dl>
                 <dt class="gray6">
                     <s class="quanxuan current"></s>全选
-                    <p class="money-total">合计<em class="orange total"><span>￥</span>17.00</em></p>
+                    <p class="money-total">合计<em class="orange total">￥<span id="globalPrice"></span></em></p>
                     
                 </dt>
                 <dd>
                     <a href="javascript:;" id="a_payment" class="orangeBtn w_account remove">删除</a>
-                    <a href="javascript:;" id="a_payment" class="orangeBtn w_account">去结算</a>
+                    <a href="javascript:;" id="a_payment" class="orangeBtn w_account pay">去结算</a>
                 </dd>
             </dl>
         </div>
@@ -174,17 +173,20 @@
   // 已选中的总额
     function GetCount() {
         var conts = 0;
-        var aa = 0; 
+        var ids = '';
         $(".g-Cart-list .xuan").each(function () {
             if ($(this).hasClass("current")) {
-                for (var i = 0; i < $(this).length; i++) {
-                    conts += parseInt($(this).parents('li').find('input.text_box').val());
-                    // aa += 1;
-                }
+                ids += $(this).parent().attr('goods_id')+','+$(this).parent().find(".text_box").val()+',';
             }
         });
-        
-         $(".total").html('<span>￥</span>'+(conts).toFixed(2));
+        ids = ids.substr(0,ids.length-1);
+        $.post(
+            "getPrice"
+            ,{ids:ids}
+            ,function(res){
+                $('#globalPrice').text(res)
+            }
+        )
     }
     GetCount();
     $.ajaxSetup({
@@ -220,6 +222,43 @@
             var num = parseInt($(this).val());
             var max = parseInt($(this).parents('li').find('.last').text());
             calculate(num,max,$(this))
+        })
+        $(".z-del").click(function(){
+            var id = $(this).parents('li').attr('cart_id');
+            var  _this = $(this)
+            $.post(
+                "cartDel"
+                ,{id:id}
+                ,function(res){
+                    _this.parents('li').remove()
+                    GetCount()
+                }
+            )
+        })
+        $(".remove").click(function(){
+            var ids = '';
+            $(".g-Cart-list .xuan").each(function () {
+                if ($(this).hasClass("current")) {
+                    ids += $(this).parents('li').attr('cart_id')+',';
+                }
+            });
+            ids = ids.substr(0,ids.length-1);
+            $.post(
+                "cartDel"
+                ,{id:ids}
+                ,function(res){
+                    $(".g-Cart-list .xuan").each(function () {
+                        if ($(this).hasClass("current")) {
+                            $(this).parents('li').remove();
+                        }
+                    });
+                    GetCount()
+                }
+            )
+        })
+
+        $(".pay").click(function(){
+            location.href='{{url('payment')}}';
         })
     })
 </script>

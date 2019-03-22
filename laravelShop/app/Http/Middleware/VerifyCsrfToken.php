@@ -26,5 +26,9 @@ class VerifyCsrfToken extends Middleware
         ,'getGoods'
         ,'savePage'
         ,'mobileCode'
+        ,'intoCart'
+        ,'getPrice'
+        ,'cartDel'
+        ,'payment'
     ];
 }

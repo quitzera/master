@@ -42,6 +42,16 @@ class IndexController extends Controller
         $mobile->getCode($code,$request->tel);
     }
 
+    function payment(Request $request){
+        $user_id = session('u_id');
+        $data = Cart::where(['user_id'=>$user_id,'cart_status'=>1])->join('shop_goods','shop_goods.goods_id','=','shop_cart.goods_id')->get();
+        $price = 0;
+        foreach($data as $v){
+            $price += $v->buy_num*$v->self_price;
+        }
+        return view('payment',['type'=>4,'data'=>$data,'price'=>$price]);
+    }
+
     public function all(){
         $data = Goods::where('is_new',1)->get();
         $carts = Category::where(['p_id'=>0,'cate_show'=>1])->get();
@@ -71,6 +81,38 @@ class IndexController extends Controller
         return $arr;
     }
 
+    function getPrice(Request $request){
+        $info = $request->ids;
+        $info = array_chunk(explode(',',$info),2);
+        $data = Goods::all();
+        $price = 0;
+        foreach ($info as $v){
+            foreach($data as $vv){
+                if($v[0] == $vv->goods_id){
+                    $price += $v[1]*$vv->self_price;
+                }
+            }
+        }
+        return $price;
+    }
+
+    function intoCart(Request $request){
+        $goods_id = $request->goods_id;
+        $user_id = session('u_id');
+        $info = Cart::where(['goods_id'=>$goods_id,'user_id'=>$user_id,'cart_status'=>1])->first();
+        if($info){
+            $info->buy_num += 1;
+            $res = $info->save();
+        }else{
+            $obj = new Cart();
+            $obj->goods_id = $goods_id;
+            $obj->user_id = $user_id;
+            $obj->buy_num = 1;
+            $obj->cart_status = 1;
+            $res = $obj->save();
+        }
+    }
+
     function getCode(){
         $captcha = new Captcha();
         $captcha->doimg();
@@ -86,6 +128,16 @@ class IndexController extends Controller
         $goods = Goods::where('is_hot',1)->limit(4,0)->get();
         $data = Cart::where(['user_id'=>session('u_id'),'cart_status'=>1])->join('shop_goods','shop_goods.goods_id','=','shop_cart.goods_id')->get();
         return view('shopcart',['data'=>$data,'type'=>4,'goods'=>$goods]);
+    }
+
+    function cartDel(Request $request){
+        $id = $request->id;
+        $id = explode(',',$id);
+        $info = Cart::whereIn('id',$id)->get();
+        foreach($info as $v){
+            $v->cart_status = 2;
+            $v->save();
+        }
     }
 
     function calculate(Request $request){
