@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Index;
 
 use App\Http\Shop\Cart;
+use App\Http\Shop\Order_address;
+use App\Http\Shop\Order_detail;
 use App\Http\Shop\User;
 use DemeterChain\C;
 use Illuminate\Http\Request;
@@ -15,6 +17,8 @@ use App\Http\Controllers\Extend\MobileCode;
 use App\Http\Shop\Address;
 use App\Http\Shop\Area;
 use Illuminate\Support\Facades\DB;
+use App\Http\Shop\OrderAddress;
+use App\Http\Shop\OrderDetail;
 
 class IndexController extends Controller
 {
@@ -83,12 +87,67 @@ class IndexController extends Controller
     }
 
     function theFinal(Request $request){
-        $ids = $request->ids;
-        $ids = explode(',',$ids);
-        $data = Cart::where('id','in',$ids)->get();
-        DB::transaction(function () {
+        if($request->ids == ''){
+            echo false;
+        }
+        DB::beginTransaction();
+        try {
+            $ids = $request->ids;
+            $ids = explode(',',$ids);
+            $data = Cart::whereIn('id',$ids)->join('shop_goods','shop_goods.goods_id','=','shop_cart.goods_id')->get();
+            //订单表
+            $price = 0;
+            foreach($data as $v){
+                $price += $v->self_price*$v->buy_num;
+            }
+            $info =[];
+            $info['order_amount'] = $price;
+            $info['order_no'] = mt_rand(100000,999999).time();
+            $info['u_id'] = session('u_id');
+            $info['created_at'] = date('Y-m-d H:i:s',time());
+            $id = DB::table('shop_order')->insertGetId($info);
+            //订单地址表
+            $info = Address::where(['user_id'=>session('u_id'),'is_default'=>1,'address_status'=>1])->first();
+            $insert = new OrderAddress();
+            $insert->order_id = $id;
+            $insert->u_id = session('u_id');
+            $insert->address_name = $info->user_name;
+            $insert->address_tel = $info->tel;
+            $insert->province = $info->province;
+            $insert->city = $info->city;
+            $insert->county = $info->area;
+            $insert->address_area = $info->address_detail;
+            $insert->created_at = date('Y-m-d H:i:s',time());
+            $insert->save();
+            //订单详情表
+            foreach($data as $v){
+                $insert = new OrderDetail();
+                $insert->order_id = $id;
+                $insert->u_id = session('u_id');
+                $insert->goods_id = $v->goods_id;
+                $insert->buy_num = $v->buy_num;
+                $insert->self_price = $v->self_price;
+                $insert->goods_name = $v->goods_name;
+                $insert->goods_img = $v->goods_img;
+                $insert->save();
+            }
+            //购物车表
+            Cart::whereIn('id',$ids)->delete();
+            //商品表
 
-        });
+            foreach($data as $v){
+                $goods_num = $v->goods_num - $v->buy_num;
+                $_id = $v->goods_id;
+                $info = Goods::find($_id);
+                $info->goods_num = $goods_num;
+                $info->save();
+            }
+            DB::commit();
+            echo '成功';
+        } catch (Exception $e) {
+            DB::rollBack();
+            echo $e->getMessage();
+        }
     }
 
     public function all(){

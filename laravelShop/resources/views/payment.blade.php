@@ -12,7 +12,7 @@
         <div class="g-pay-lst">
             <ul>
                 @foreach($data as $v)
-                <li cart_id="{{$v->cart_id}}" class="getId">
+                <li cart_id="{{$v->id}}" class="getId">
                     <a href="">
                         <span>
                             <img src="/uploads/{{$v->goods_img}}" border="0" alt="">
@@ -211,18 +211,15 @@
     $("#subbtn").click(function(){
         var ids = '';
         $(".getId").each(function(){
-            ids += $(this).parents('.getId').attr('cart_id');
+            ids += $(this).attr('cart_id')+',';
         })
         ids = ids.substr(0,ids.length-1)
+        console.log(ids)
         $.post(
             "/theFinal"
             ,{ids,ids}
             ,function(res){
-                if(res){
-                    location.href="/success"
-                }else{
-                    alert('支付失败')
-                }
+                alert(res)
             }
         )
     })
