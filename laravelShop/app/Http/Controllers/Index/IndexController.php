@@ -152,13 +152,13 @@ class IndexController extends Controller
             }else{
                 $data[$k]->is_default = 2;
             }
+            $data[$k]->save();
         }
-        $data->save();
     }
 
     function createAddr(Request $request){
         $info = $request->input();
-        if($info['is_default'] != 1){
+        if(empty($info['is_default'])){
             $info['is_default'] = 2;
         }
         $info['user_id'] = session('u_id');

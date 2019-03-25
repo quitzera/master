@@ -63,7 +63,7 @@
             "/defaultThis"
             ,{id,id}
             ,function(res){
-
+                history.go(0)
             }
         )
     })

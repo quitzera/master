@@ -46,7 +46,7 @@
           </select>
       </li>
       <li class="addr-detail"><em>详细地址</em><input type="text" name="address_detail" placeholder="20个字以内" class="addr"></li>
-    <li>  <span>设为默认地址</span> <input type="checkbox" name="is_default" value="1" checked style="width:15px;height:15px;display: block;border:1px solid black">
+    <li>  <span>设为默认地址</span> <input type="checkbox" name="is_default" value="1" style="width:15px;height:15px;display: block;border:1px solid black">
     </li>
         <li><input type="submit" value="保存"></li>
     </ul>

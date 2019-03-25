@@ -35,5 +35,6 @@ class VerifyCsrfToken extends Middleware
         ,'unity'
         ,'delAddr'
         ,'theFinal'
+        ,'defaultThis'
     ];
 }
