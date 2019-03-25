@@ -38,4 +38,12 @@ Route::group(['middleware'=>'check'],function(){
     Route::post('getPrice','Index\\IndexController@getPrice');
     Route::post('cartDel','Index\\IndexController@cartDel');
     Route::get('payment','Index\\IndexController@payment');
+    Route::get('address','Index\\IndexController@address');
+    Route::get('writeaddr','Index\\IndexController@writeaddr');
+    Route::any('unity','Index\\IndexController@unity');
+    Route::any('createAddr','Index\\IndexController@createAddr');
+    Route::any('defaultThis','Index\\IndexController@defaultThis');
+    Route::any('delAddr','Index\\IndexController@delAddr');
+    Route::any('success','Index\\IndexController@success');
+    Route::any('theFinal','Index\\IndexController@theFinal');
 });

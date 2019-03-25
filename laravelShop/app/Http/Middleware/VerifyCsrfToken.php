@@ -30,5 +30,10 @@ class VerifyCsrfToken extends Middleware
         ,'getPrice'
         ,'cartDel'
         ,'payment'
+        ,'address'
+        ,'writeaddr'
+        ,'unity'
+        ,'delAddr'
+        ,'theFinal'
     ];
 }

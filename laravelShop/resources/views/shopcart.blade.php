@@ -258,7 +258,14 @@
         })
 
         $(".pay").click(function(){
-            location.href='{{url('payment')}}';
+            var ids = '';
+            $(".g-Cart-list .xuan").each(function () {
+                if ($(this).hasClass("current")) {
+                    ids += $(this).parents('li').attr('cart_id')+',';
+                }
+            });
+            ids = ids.substr(0,ids.length-1);
+            location.href="/payment?ids="+ids;
         })
     })
 </script>

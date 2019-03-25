@@ -247,8 +247,13 @@
             "mobileCode"
             ,{tel:tel}
             ,function(res){
-                alert('已发送')
+                if(res.code == 2){
+                    alert('已被注册')
+                }else{
+                    alert('已发送')
+                }
             }
+            ,'json'
         )
     })
 

@@ -12,6 +12,9 @@ use App\Http\Shop\Category;
 use Illuminate\Routing\Route;
 use App\Http\Controllers\Extend\Captcha;
 use App\Http\Controllers\Extend\MobileCode;
+use App\Http\Shop\Address;
+use App\Http\Shop\Area;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -35,6 +38,12 @@ class IndexController extends Controller
     }
 
     public function mobileCode(Request $request){
+        $info = User::where('user_email',$request->tel)->first();
+        if($info){
+            $data = ['font'=>'已被注册','code'=>2];
+            echo json_encode($data);
+            die;
+        }
         $code = mt_rand(1000,9999);
         session(['mobileCode'=>$code]);
         session(['sendTime'=>time()]);
@@ -42,9 +51,30 @@ class IndexController extends Controller
         $mobile->getCode($code,$request->tel);
     }
 
+    function address(Request $request){
+        $areas = Area::all();
+        $data = Address::where('shop_address.user_id',session('u_id'))->join('shop_user','shop_user.user_id','=','shop_address.user_id')->get();
+        foreach ($data as $k=>$v){
+            foreach ($areas as $val){
+                if($v->province == $val->id){
+                    $data[$k]->province_name = $val->name;
+                }
+                if($v->city == $val->id){
+                    $data[$k]->city_name = $val->name;
+                }
+                if($v->area == $val->id){
+                    $data[$k]->area_name = $val->name;
+                }
+            }
+        }
+            return view('address',['type'=>5,'data'=>$data]);
+    }
+
     function payment(Request $request){
         $user_id = session('u_id');
-        $data = Cart::where(['user_id'=>$user_id,'cart_status'=>1])->join('shop_goods','shop_goods.goods_id','=','shop_cart.goods_id')->get();
+        $ids = $request->ids;
+        $ids = explode(',',$ids);
+        $data = Cart::whereIn('shop_cart.id',$ids)->join('shop_goods','shop_goods.goods_id','=','shop_cart.goods_id')->get();
         $price = 0;
         foreach($data as $v){
             $price += $v->buy_num*$v->self_price;
@@ -52,10 +82,31 @@ class IndexController extends Controller
         return view('payment',['type'=>4,'data'=>$data,'price'=>$price]);
     }
 
+    function theFinal(Request $request){
+        $ids = $request->ids;
+        $ids = explode(',',$ids);
+        $data = Cart::where('id','in',$ids)->get();
+        DB::transaction(function () {
+
+        });
+    }
+
     public function all(){
         $data = Goods::where('is_new',1)->get();
         $carts = Category::where(['p_id'=>0,'cate_show'=>1])->get();
         return view('allshops',['data'=>$data,'carts'=>$carts,'cate_id'=>0,'type'=>2]);
+    }
+
+    function writeaddr(){
+        $province = Area::where('pid',0)->get();
+        return view('writeaddr',['type'=>5,'province'=>$province]);
+    }
+
+
+    function unity(Request $request){
+        $val = $request->val;
+        $data = Area::where('pid',$val)->get();
+        echo json_encode($data);
     }
 
     public function getGoods(Request $request)
@@ -79,6 +130,44 @@ class IndexController extends Controller
             }
         }
         return $arr;
+    }
+
+    function delAddr(Request $request){
+        $id = $request->id;
+        echo $id;
+        Address::destroy($id);
+    }
+
+    function success(){
+        $data = Goods::where('is_hot',1)->get();
+        return view('paysuccess',['data'=>$data]);
+    }
+
+    function defaultThis(Request $request){
+        $id = $request->id;
+        $data = Address::where('user_id',session('u_id'))->get();
+        foreach($data as $k=>$v){
+            if($v->address_id == $id){
+                $data[$k]->is_default = 1;
+            }else{
+                $data[$k]->is_default = 2;
+            }
+        }
+        $data->save();
+    }
+
+    function createAddr(Request $request){
+        $info = $request->input();
+        if($info['is_default'] != 1){
+            $info['is_default'] = 2;
+        }
+        $info['user_id'] = session('u_id');
+        $res = DB::table('shop_address')->insert($info);
+        if($res){
+            return redirect('/address');
+        }else{
+            return redirect('writeaddr');
+        }
     }
 
     function getPrice(Request $request){
@@ -184,6 +273,12 @@ class IndexController extends Controller
         $time = session('sendTime');
         if(time() - $time > 300){
             $data = ['font'=>'超时','code'=>2];
+            echo json_encode($data);
+            die;
+        }
+        $info = User::where('user_email',$tel)->first();
+        if($info){
+            $data = ['font'=>'已被注册','code'=>2];
             echo json_encode($data);
             die;
         }

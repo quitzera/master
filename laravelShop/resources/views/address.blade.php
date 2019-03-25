@@ -21,21 +21,22 @@
 <div class="m-block-header" id="div-header">
     <strong id="m-title">地址管理</strong>
     <a href="javascript:history.back();" class="m-back-arrow"><i class="m-public-icon"></i></a>
-    <a href="/" class="m-index-icon">添加</a>
+    <a href="{{url('/writeaddr')}}" class="m-index-icon">添加</a>
 </div>
 <div class="addr-wrapp">
-    <div class="addr-list">
+  @foreach($data as $v)
+    <div class="addr-list" address_id="{{$v->address_id}}">
          <ul>
             <li class="clearfix">
-                <span class="fl">兰兰</span>
-                <span class="fr">15034008459</span>
+                <span class="fr">{{$v->user_email}}</span>
+                <span class="fl">{{$v->user_name}}</span>
             </li>
             <li>
-                <p>北京市东城区起来我来了</p>
+                <p>{{$v->province_name}}-{{$v->city_name}}-{{$v->area_name}} {{$v->address_detail}}</p>
             </li>
             <li class="a-set">
-                <s class="z-set" style="margin-top: 6px;"></s>
-                <span>设为默认</span>
+                <s @if($v->is_default == 1)class="default" @else class="z-defalt" @endif style="margin-top: 6px;"></s>
+                <span class="defaultThis">设为默认</span>
                 <div class="fr">
                     <span class="edit">编辑</span>
                     <span class="remove">删除</span>
@@ -43,26 +44,7 @@
             </li>
         </ul>  
     </div>
-    <div class="addr-list">
-         <ul>
-            <li class="clearfix">
-                <span class="fl">兰兰</span>
-                <span class="fr">15034008459</span>
-            </li>
-            <li>
-                <p>北京市东城区起来我来了</p>
-            </li>
-            <li class="a-set">
-                <s class="z-defalt" style="margin-top: 6px;"></s>
-                <span>设为默认</span>
-                <div class="fr">
-                    <span class="edit">编辑</span>
-                    <span class="remove">删除</span>
-                </div>
-            </li>
-        </ul>  
-    </div>
-   
+   @endforeach
 </div>
 
 
@@ -74,16 +56,34 @@
 <!-- 单选 -->
 <script>
     
+    $(document).on('click','.defaultThis',function(){
+        var _this = $(this)
+        var id = _this.parents('div').attr('address_id')
+        $.post(
+            "/defaultThis"
+            ,{id,id}
+            ,function(res){
 
+            }
+        )
+    })
      // 删除地址
     $(document).on('click','span.remove', function () {
+        var _this = $(this)
+        var id = _this.parents('.addr-list').attr('address_id')
         var buttons1 = [
             {
               text: '删除',
               bold: true,
               color: 'danger',
               onClick: function() {
-                $.alert("您确定删除吗？");
+                $.post(
+                    '/delAddr'
+                    ,{id:id}
+                    ,function(res){
+                        _this.parents('.addr-list').remove()
+                    }
+                )
               }
             }
           ];
