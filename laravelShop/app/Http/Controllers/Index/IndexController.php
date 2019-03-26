@@ -156,6 +156,15 @@ class IndexController extends Controller
         return view('allshops',['data'=>$data,'carts'=>$carts,'cate_id'=>0,'type'=>2]);
     }
 
+    function buyRecord(){
+        $data = DB::table('shop_order_detail')->where('u_id',session('u_id'))->join('shop_user','shop_user.user_id','=','shop_order_detail.u_id')->orderBy('shop_order_detail.created_at','desc')->get();
+        $beta = [];
+        if(!$data){
+            $beta = Goods::where(['is_hot'=>1,'is_up'=>1])->get();
+        }
+        return view('buyrecord',['type'=>5,'data'=>$data,'beta'=>$beta]);
+    }
+
     function writeaddr(){
         $province = Area::where('pid',0)->get();
         return view('writeaddr',['type'=>5,'province'=>$province]);

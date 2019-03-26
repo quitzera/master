@@ -36,5 +36,6 @@ class VerifyCsrfToken extends Middleware
         ,'delAddr'
         ,'theFinal'
         ,'defaultThis'
+        ,'buyRecord'
     ];
 }
