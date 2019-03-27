@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Index;
 
 use App\Http\Shop\Cart;
@@ -20,8 +19,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Shop\OrderAddress;
 use App\Http\Shop\OrderDetail;
 use Redis;
-use App\Http\Controllers\Extend\Alipay\Wappay\Service\AlipayTradeService;
-use App\Http\Controllers\Extend\Alipay\Wappay\Buildermodel\AlipayTradeWapPayContentBuilder;
+use App\Http\Controllers\Extend\alipay\wappay\service\AlipayTradeService;
+use App\Http\Controllers\Extend\alipay\wappay\buildermodel\AlipayTradeWapPayContentBuilder;
 
 class IndexController extends Controller
 {

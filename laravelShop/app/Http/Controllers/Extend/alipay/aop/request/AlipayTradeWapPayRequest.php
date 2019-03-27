@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Extend\Alipay\Aop\Request;
+namespace App\Http\Controllers\Extend\alipay\aop\request;
 /**
  * ALIPAY API: alipay.trade.wap.pay request
  *

@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Extend\Alipay\Aop;
+namespace App\Http\Controllers\Extend\alipay\aop;
 require_once 'AopEncrypt.php';
 
 class AopClient {
