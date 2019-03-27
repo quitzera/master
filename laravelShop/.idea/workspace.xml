@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9bc70bbc-6189-47a1-a493-6e05da36007e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Index/IndexController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Index/IndexController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/allshops.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/allshops.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/master.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/payment.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/payment.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/share.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/share.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/shopcart.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shopcart.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/userpage.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/userpage.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-    </list>
+    <list default="true" id="9bc70bbc-6189-47a1-a493-6e05da36007e" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,8 +66,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Index/IndexController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="25">
-              <caret line="139" column="25" lean-forward="true" selection-start-line="139" selection-start-column="25" selection-end-line="139" selection-end-column="25" />
+            <state relative-caret-position="175">
+              <caret line="127" column="64" selection-start-line="127" selection-start-column="64" selection-end-line="127" selection-end-column="64" />
               <folding>
                 <element signature="e#46#69#0#PHP" expanded="true" />
               </folding>
@@ -540,12 +529,12 @@
       <workItem from="1553491994451" duration="13174000" />
       <workItem from="1553566418048" duration="1411000" />
       <workItem from="1553587323222" duration="8919000" />
-      <workItem from="1553654575217" duration="18817000" />
+      <workItem from="1553654575217" duration="19386000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="140686000" />
+    <option name="totallyTimeSpent" value="141255000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -920,8 +909,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Index/IndexController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="139" column="25" lean-forward="true" selection-start-line="139" selection-start-column="25" selection-end-line="139" selection-end-column="25" />
+        <state relative-caret-position="175">
+          <caret line="127" column="64" selection-start-line="127" selection-start-column="64" selection-end-line="127" selection-end-column="64" />
           <folding>
             <element signature="e#46#69#0#PHP" expanded="true" />
           </folding>
