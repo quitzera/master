@@ -35,7 +35,7 @@
         <ul>
             <li class="f_home"><a href="/" @if($type == 1)class="hover"@endif><i></i>潮购</a></li>
             <li class="f_announced"><a href="{{url('all')}}"  @if($type == 2)class="hover"@endif><i></i>所有商品</a></li>
-            <li class="f_single"><a href="/v41/post/index.do"  @if($type == 3)class="hover"@endif><i></i>最新揭晓</a></li>
+            <li class="f_single"><a href="{{url('share')}}"  @if($type == 3)class="hover"@endif><i></i>最新揭晓</a></li>
             <li class="f_car"><a id="btnCart" href="{{url('cart')}}"  @if($type == 4)class="hover"@endif><i></i>购物车</a></li>
             <li class="f_personal"><a href="{{url('user')}}"  @if($type == 5)class="hover"@endif><i></i>我的潮购</a></li>
         </ul>

@@ -222,6 +222,8 @@
             var num = parseInt($(this).val());
             var max = parseInt($(this).parents('li').find('.last').text());
             calculate(num,max,$(this))
+            GetCount()
+
         })
         $(".z-del").click(function(){
             var id = $(this).parents('li').attr('cart_id');

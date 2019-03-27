@@ -47,4 +47,7 @@ Route::group(['middleware'=>'check'],function(){
     Route::any('success','Index\\IndexController@success');
     Route::any('theFinal','Index\\IndexController@theFinal');
     Route::any('buyRecord','Index\\IndexController@buyRecord');
+    Route::any('pay','Index\\IndexController@pay');
+    Route::any('return','Index\\IndexController@return');
+
 });

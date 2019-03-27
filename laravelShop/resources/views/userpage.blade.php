@@ -47,7 +47,7 @@
     <div class="sub_nav marginB person-page-menu">
         <a href="{{url('buyRecord')}}"><s class="m_s1"></s>潮购记录<i></i></a>
         <a href="/v44/member/orderlist.do"><s class="m_s2"></s>获得的商品<i></i></a>
-        <a href="/v44/member/postlist.do"><s class="m_s3"></s>我的晒单<i></i></a>
+        <a href="{{url('share')}}"><s class="m_s3"></s>我的晒单<i></i></a>
         <a href="/v44/member/mywallet.do"><s class="m_s4"></s>我的钱包<i></i></a>
         <a href="{{url('/address')}}"><s class="m_s5"></s>收货地址<i></i></a>
         <a href="/v44/help/help.do" class="mt10"><s class="m_s6"></s>帮助与反馈<i></i></a>

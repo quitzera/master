@@ -19,6 +19,9 @@ use App\Http\Shop\Area;
 use Illuminate\Support\Facades\DB;
 use App\Http\Shop\OrderAddress;
 use App\Http\Shop\OrderDetail;
+use Redis;
+use App\Http\Controllers\Extend\Alipay\Wappay\Service\AlipayTradeService;
+use App\Http\Controllers\Extend\Alipay\Wappay\Buildermodel\AlipayTradeWapPayContentBuilder;
 
 class IndexController extends Controller
 {
@@ -38,7 +41,11 @@ class IndexController extends Controller
 
     public function share()
     {
-        return view('share');
+        $data = DB::table('shop_order_detail')->where('u_id',session('u_id'))->join('shop_user','shop_user.user_id','=','shop_order_detail.u_id')->join('shop_goods','shop_goods.goods_id','=','shop_order_detail.goods_id')->orderBy('shop_order_detail.created_at','desc')->get();
+        foreach ($data as $v){
+            $v->goods_imgs = explode('|',rtrim($v->goods_imgs,'|,'));
+        }
+        return view('share',['data'=>$data,'type'=>3]);
     }
 
     public function mobileCode(Request $request){
@@ -86,13 +93,72 @@ class IndexController extends Controller
         return view('payment',['type'=>4,'data'=>$data,'price'=>$price]);
     }
 
-    function theFinal(Request $request){
+
+
+    function return(Request $request){
+        if($request->request){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function pay(Request $request){
         if($request->ids == ''){
-            echo false;
+            return false;
+        }
+        session(['payIds'=>$request->ids]);
+        $price = $this->countThis();
+        $config = config('alipay');
+        //商户订单号，商户网站订单系统中唯一订单号，必填
+        $out_trade_no = date("Ymdhis").rand(1000,9999);
+
+        //订单名称，必填
+        $subject = 'wdnmd一个沙箱哪里来的那么多事？';
+
+        //付款金额，必填
+        $total_amount = "$price";
+
+        //商品描述，可空
+        $body = '';
+
+        //超时时间
+        $timeout_express="3m";
+
+        $payRequestBuilder = new AlipayTradeWapPayContentBuilder();
+        $payRequestBuilder->setBody($body);
+        $payRequestBuilder->setSubject($subject);
+        $payRequestBuilder->setOutTradeNo($out_trade_no);
+        $payRequestBuilder->setTotalAmount($total_amount);
+        $payRequestBuilder->setTimeExpress($timeout_express);
+
+        $payResponse = new AlipayTradeService($config);
+        $result=$payResponse->wapPay($payRequestBuilder,$config['return_url'],$config['notify_url']);
+        return ;
+    }
+
+    function countThis(){
+        if(session('payIds') == ''){
+            return false;
+        }
+        $ids = session('payIds');
+        $ids = explode(',',$ids);
+        $data = Cart::whereIn('id',$ids)->join('shop_goods','shop_goods.goods_id','=','shop_cart.goods_id')->get();
+        //订单表
+        $price = 0;
+        foreach($data as $v){
+            $price += $v->self_price*$v->buy_num;
+        }
+        return $price;
+    }
+
+    function theFinal(){
+        if(session('payIds') == ''){
+            return redirect("/payment?ids=".session('payIds'));
         }
         DB::beginTransaction();
         try {
-            $ids = $request->ids;
+            $ids = session('payIds');
             $ids = explode(',',$ids);
             $data = Cart::whereIn('id',$ids)->join('shop_goods','shop_goods.goods_id','=','shop_cart.goods_id')->get();
             //订单表
@@ -143,10 +209,8 @@ class IndexController extends Controller
                 $info->save();
             }
             DB::commit();
-            echo '成功';
         } catch (Exception $e) {
             DB::rollBack();
-            echo $e->getMessage();
         }
     }
 
@@ -207,6 +271,7 @@ class IndexController extends Controller
     }
 
     function success(){
+        $this->theFinal();
         $data = Goods::where('is_hot',1)->get();
         return view('paysuccess',['data'=>$data]);
     }
@@ -278,7 +343,16 @@ class IndexController extends Controller
     }
 
     function test(){
-        echo session('mobileCode');
+
+   //连接本地的 Redis 服务
+   $redis = new Redis();
+   $redis->connect('127.0.0.1', 6379);
+   echo "Connection to server successfully";
+   //设置 redis 字符串数据
+   $redis->set("tutorial-name", "Redis tutorial");
+   // 获取存储的数据并输出
+   echo "Stored string in redis:: " . $redis->get("tutorial-name");
+
     }
 
     function cart(){

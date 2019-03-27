@@ -1,14 +1,5 @@
-﻿
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>晒单分享</title>
-    <meta content="app-id=518966501" name="apple-itunes-app" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no, maximum-scale=1.0" />
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-    <meta content="telephone=no" name="format-detection" />
+﻿@extends('master')
+@section('contnet')
     <link rel="stylesheet" href="css/sm.css">
     <link href="css/comm.css" rel="stylesheet" type="text/css" />
     <link href="css/single.css" rel="stylesheet" type="text/css" />
@@ -28,181 +19,45 @@
             <div id="loadingPicBlock" class="wx-show-wrapper">
                 <div class="wx-show-inner">
                     <div id="divPostList" class="marginB">
-                       <!--  <div class="show-list" postid="421452">
-                            <div class="show-head">
-                                <a href="/v44/userpage/1010835186" class="show-u blue">厦门市</a>
-                                <span class="show-time">刚刚</span>
-                            </div>
-                            <a href="/v44/post/detail-421452.do">
-                                <h3>小米USB插线板</h3>
-                            </a>
-                            <a href="/v44/post/detail-421452.do">
-                                <div class="show-pic">
-                                    <ul class="pic-more clearfix">
-                                        <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135108386.jpg">
-                                        </li>
-                                        <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135109851.jpg">
-                                        </li>
-                                        <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135112131.jpg">
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="show-con">
-                                    <p name="content">中奖了，心里一个美啊，激动万分，小米USB插板，家庭办公都很实用，设计非常的到位，小巧，不占地方，包装完美，做工非…</p>
-                                </div>
-                            </a>
-                            <div class="opt-wrapper">
-                                <ul class="opt-inner">
-                                    <li name="wx_zan" postid="421452">
-                                        <a href="javascript:;">
-                                            <span class="zan wx-new-icon"></span><em>0</em>
-                                        </a>
-                                    </li>
-                                    
-                                    
-                                </ul>
-                            </div>
-                        </div>
                         <div class="show-list" postid="421452">
+                            @if($data)
+                            @foreach($data as $v)
                             <div class="show-head">
-                                <a href="/v44/userpage/1010835186" class="show-u blue">厦门市</a>
-                                <span class="show-time" data-timeago="2017/7/21 14:0:0">刚刚</span>
+                                <a href="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3126854174,2746990258&fm=27&gp=0.jpg" class="show-u blue"></a>
+                                <span>{{$v->created_at.'分钟前'}}</span>
                             </div>
-                            <a href="/v44/post/detail-421452.do">
-                                <h3>小米USB插线板</h3>
+                            <a href="/uploads/{{$v->goods_img}}">
+                                <h3>{{$v->goods_name}}</h3>
                             </a>
-                            <a href="/v44/post/detail-421452.do">
+                            <a href="script:;">
                                 <div class="show-pic">
                                     <ul class="pic-more clearfix">
+                                        @foreach($v->goods_imgs as $vv)
                                         <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135108386.jpg">
+                                            <img src="/uploads/{{$vv}}">
                                         </li>
-                                        <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135109851.jpg">
-                                        </li>
-                                        <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135112131.jpg">
-                                        </li>
-                                        <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135112131.jpg">
-                                        </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                                 <div class="show-con">
-                                    <p name="content">中奖了，心里一个美啊，激动万分，小米USB插板，家庭办公都很实用，设计非常的到位，小巧，不占地方，包装完美，做工非…</p>
+                                    <p>{{$v->user_email}}</p>
+                                    <p name="content">我哭了，你呢？</p>
                                 </div>
                             </a>
-                            <div class="opt-wrapper">
-                                <ul class="opt-inner">
-                                    <li name="wx_zan" postid="421452">
-                                        <a href="javascript:;">
-                                            <span class="zan wx-new-icon"></span><em>0</em>
-                                        </a>
-                                    </li>
-                                    
-                                    
-                                </ul>
-                            </div>
+                                <hr>
+                        @endforeach
                         </div>
-                        <div class="show-list" postid="421452">
-                            <div class="show-head">
-                                <a href="/v44/userpage/1010835186" class="show-u blue">厦门市</a>
-                                <span class="show-time"  data-timeago="2017/7/21 14:0:0">刚刚</span>
-                            </div>
-                            <a href="/v44/post/detail-421452.do">
-                                <h3>小米USB插线板</h3>
-                            </a>
-                            <a href="/v44/post/detail-421452.do">
-                                <div class="show-pic">
-                                    <ul class="pic-more clearfix">
-                                        <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135108386.jpg">
-                                        </li>
-                                        <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135109851.jpg">
-                                        </li>
-                                        <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135112131.jpg">
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="show-con">
-                                    <p name="content">中奖了，心里一个美啊，激动万分，小米USB插板，家庭办公都很实用，设计非常的到位，小巧，不占地方，包装完美，做工非…</p>
-                                </div>
-                            </a>
-                            <div class="opt-wrapper">
-                                <ul class="opt-inner">
-                                    <li name="wx_zan" postid="421452">
-                                        <a href="javascript:;">
-                                            <span class="zan wx-new-icon"></span><em>0</em>
-                                        </a>
-                                    </li>
-                                    
-                                    
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="show-list" postid="421452">
-                            <div class="show-head">
-                                <a href="/v44/userpage/1010835186" class="show-u blue">厦门市</a>
-                                <span class="show-time" data-timeago="2017/7/21 14:0:0">刚刚</span>
-                            </div>
-                            <a href="/v44/post/detail-421452.do">
-                                <h3>小米USB插线板</h3>
-                            </a>
-                            <a href="/v44/post/detail-421452.do">
-                                <div class="show-pic">
-                                    <ul class="pic-more clearfix">
-                                        <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135108386.jpg">
-                                        </li>
-                                        <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135109851.jpg">
-                                        </li>
-                                        <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135112131.jpg">
-                                        </li>
-                                        <li>
-                                            <img src="https://img.1yyg.net/userpost/small/20170623135112131.jpg">
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="show-con">
-                                    <p name="content">中奖了，心里一个美啊，激动万分，小米USB插板，家庭办公都很实用，设计非常的到位，小巧，不占地方，包装完美，做工非…</p>
-                                </div>
-                            </a>
-                            <div class="opt-wrapper">
-                                <ul class="opt-inner">
-                                    <li name="wx_zan" postid="421452">
-                                        <a href="javascript:;">
-                                            <span class="zan wx-new-icon"></span><em>0</em>
-                                        </a>
-                                    </li>
-                                    
-                                    
-                                </ul>
-                            </div>
-                        </div>  -->
                     </div>
                     <!-- 无内容时显示 -->
+                    @else
                     <div class="noRecords colorbbb shownocontent" style="display: none">
                         <s class="default"></s>
                         暂时还没有晒单信息哦~
                     </div>
+                        @endif
                 </div>
             </div>
-            <div class="footer clearfix">
-                <ul>
-                    <li class="f_home"><a href="/v41/index.do" ><i></i>潮购</a></li>
-                    <li class="f_announced"><a href="/v41/lottery/" ><i></i>所有商品</a></li>
-                    <li class="f_single"><a href="/v41/post/index.do" class="hover"><i></i>最新揭晓</a></li>
-                    <li class="f_car"><a id="btnCart" href="/v41/mycart/index.do" ><i></i>购物车</a></li>
-                    <li class="f_personal"><a href="/v41/member/index.do" ><i></i>我的潮购</a></li>
-                </ul>
-            </div>
+
         </div>
     </div>
 <script src="js/timeago.min.js"></script>
@@ -215,4 +70,4 @@
     }
 </script>
 </body>
-</html>
+

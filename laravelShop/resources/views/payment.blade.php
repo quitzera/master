@@ -53,7 +53,7 @@
                 <a href="javascript:;" id="jdPay">
                 	<span class="kq"></span>
                 	<b class="z-set"></b>
-                </a>         <a style="border:1px solid white;color:white;text-align: center;border-radius: 10px;background-color:orangered;display: block" id="btnPay" href="javascript:;" class="btn-large">立即支付
+                </a>         <a style="border:1px solid white;color:white;text-align: center;border-radius: 10px;background-color:orangered;display: block" id="toPay" href="javascript:;" class="btn-large">立即支付
                 </a>
             </div>
 
@@ -208,7 +208,7 @@
         }
     }); 
 
-    $("#subbtn").click(function(){
+    $("#toPay").click(function(){
         var ids = '';
         $(".getId").each(function(){
             ids += $(this).attr('cart_id')+',';
@@ -216,21 +216,14 @@
         ids = ids.substr(0,ids.length-1)
         console.log(ids)
         $.post(
-            "/theFinal"
+            "/pay"
             ,{ids,ids}
             ,function(res){
-                alert(res)
+                $('body').html(res)
             }
         )
     })
 
-    $('#btnPay').click(function(){
-        layer.open({
-            type: 1,
-            title: false,
-            content: $('.paywrapp')
-        })
-    })
 
     $(function(){
         $("#fuck").attr('href','');

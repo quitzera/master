@@ -256,7 +256,7 @@
                 }
             )
         }
-        $('#sortListUl li').click(function(){
+        $('#sortListUl  li').click(function(){
            refresh();
         })
 
