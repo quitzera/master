@@ -39,5 +39,6 @@ class VerifyCsrfToken extends Middleware
         ,'buyRecord'
         ,'return'
         ,'pay'
+        ,'do'
     ];
 }

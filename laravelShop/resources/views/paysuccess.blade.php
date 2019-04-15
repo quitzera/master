@@ -18,7 +18,7 @@
 			<p>支付成功，请耐心等待揭晓结果！</p>
 			<div class="pay-btn">
 				<a href="" class="watch">查看潮购码</a>
-				<a href="">继续潮购</a>
+				<a href="{{url('/')}}">继续潮购</a>
 			</div>
 		</div>
 		 

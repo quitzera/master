@@ -32,6 +32,29 @@ class IndexController extends Controller
         return view('Index',['data'=>$data,'hot'=>$hot,'type'=>1]);
     }
 
+    public function do(){
+        $res = $this->checkSign();
+        if($res){
+            return $_GET['echostr'];
+        }
+    }
+    private function checkSign(){
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+
+        $tmpArr = array("hehehe",$timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode( $tmpArr );
+        $tmpStr = sha1( $tmpStr );
+
+        if( $signature == $tmpStr){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function detail($id){
         $info = Goods::find($id);
         $info->goods_imgs = explode('|',rtrim($info->goods_imgs,'|'));

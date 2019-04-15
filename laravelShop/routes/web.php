@@ -23,6 +23,23 @@ Route::any('view',function(){
     return view('regauth',['type'=>5]);
 });
 Route::get('user','Index\\IndexController@user');
+Route::get('createMaterial','Vx\\VxController@createMaterial');
+Route::get('createMsg','Vx\\AdminController@createMsg');
+Route::get('master','Vx\\AdminController@master');
+Route::get('index','Vx\\AdminController@index');
+Route::get('welcome','Vx\\AdminController@welcome');
+Route::get('dealData','Vx\\AdminController@dealData');
+Route::get('addMenu','Vx\\AdminController@addMenu');
+Route::get('whenSubscribe','Vx\\AdminController@whenSubscribe');
+Route::get('defineMenu','Vx\\AdminController@defineMenu');
+Route::get('chose','Vx\\AdminController@chose');
+Route::post('passMenu','Vx\\AdminController@passMenu');
+Route::post('addMaterial','Vx\\VxController@addMaterial');
+Route::post('changeType','Vx\\AdminController@changeType');
+Route::post('saveMsg','Vx\\AdminController@saveMsg');
+Route::any('do','Vx\\VxController@do');
+Route::any('accessToken','Vx\\VxController@accessToken');
+Route::any('subCallback','Vx\\VxController@subCallback');
 Route::post('telUnique','Index\\IndexController@telUnique');
 Route::post('registerDo','Index\\IndexController@registerDo');
 Route::post('loginDo','Index\\IndexController@loginDo');
@@ -51,3 +68,4 @@ Route::group(['middleware'=>'check'],function(){
     Route::any('return','Index\\IndexController@return');
 
 });
+
