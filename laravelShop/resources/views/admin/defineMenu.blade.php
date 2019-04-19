@@ -63,7 +63,7 @@
                         var name = $(this).find(".name").val();
                         var key = $(this).find(".key").val();
                         var type = $(this).find(".type").val();
-                        sub_button[flag2] = {name:name,type:type,key:key}
+                        sub_button[flag2] = {name:name,type:type,url:key}
                         flag2 ++
                     })
                 }

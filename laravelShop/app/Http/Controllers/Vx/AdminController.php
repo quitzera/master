@@ -24,12 +24,212 @@ use App\Http\Controllers\Extend\alipay\wappay\buildermodel\AlipayTradeWapPayCont
 use App\Http\Model\Vx;
 use App\Http\Model\Subscribe;
 use App\Http\Model\Menu;
+use App\Http\Controllers\TestController;
 
 
 class AdminController extends Controller
 {
     function index(){
         return view('admin.index');
+    }
+    
+    function VxLogin(Request $request){
+        $code = $request->code;
+        $appid = env('VXAPPID');
+        $appsecret = env('VXAPPSECRET');
+        $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$appsecret&code=$code&grant_type=authorization_code";
+        $data = file_get_contents($url);
+        $data = json_decode($data,true);
+        $access_token = $data['access_token'];
+        $openid = $data['openid'];
+        $url = "https://api.weixin.qq.com/sns/userinfo?access_token=$access_token&openid=$openid&lang=zh_CN";
+        $info = file_get_contents($url);
+        echo $info;
+    }
+
+    function code(){
+        return view('code');
+    }
+
+    public function getList()
+    {
+        $token = Vx::readAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/user/get?access_token=$token";
+        $re = json_decode(file_get_contents($url));
+        $url1 = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=$token";
+        $vx = new Vx();
+        $info = "{
+    \"articles\": [{
+     \"title\": 'hello',
+    \"thumb_media_id\": 'wyIeJXk5w68yPoFZsHWIFqUQqZIxgr_Ip5_6pv0wsOtIxsJAF12gJAMuYwMemeJY',
+    \"show_cover_pic\": 0,
+    \"content\": 'no message',
+    \"content_source_url\": 'http://39.107.86.183',
+},
+]
+}";
+        $media_id = $vx->request_post($url1,$info);
+        dd($media_id);die;
+        $media_id = json_decode($media_id,true)['media_id'];
+        $data = "{
+               \"touser\":".json_encode($re->data->openid).",
+               \"mpnews\":{
+                  \"media_id\":\"$media_id\"
+               },
+                \"msgtype\":\"mpnews\"，
+                \"send_ignore_reprint\":0
+            }";
+        return $data;
+    }
+
+    public function UserList(){
+        $vx = new Vx();
+        $token = Vx::readAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/user/get?access_token=$token";
+        $re = json_decode(file_get_contents($url),true);
+        $data = $re['data']['openid'];
+        $url = "https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=$token";
+        $arr = [];
+        foreach ($data as $v){
+            $arr[] = ['openid' => $v];
+        }
+        $json = [
+            "user_list"=>
+                $arr
+        ];
+        $json = json_encode($json,JSON_UNESCAPED_UNICODE);
+        $re = $vx->request_post($url,$json);
+        $arr = json_decode($re,true)['user_info_list'];
+        $collector = [];
+        foreach ($arr as $v){
+            $collector[] = ['nickname'=>$v['nickname'],'openid'=>$v['openid']];
+        }
+        $tags = file_get_contents("https://api.weixin.qq.com/cgi-bin/tags/get?access_token=$token");
+        $tags = json_decode($tags,true)['tags'];
+        return view('admin.UserList',['data'=>$collector,'tags'=>$tags]);
+    }
+
+    function adminTagSend(Request $request){
+        $json = "{
+   \"filter\":{
+      \"is_to_all\":false,
+      \"tag_id\":$request->tagid
+   },
+   \"text\":{
+      \"content\":'$request->contents'
+   },
+    \"msgtype\":'text'
+}";
+        echo $json;die;
+        $token = Vx::readAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=$token";
+        $vx = new Vx();
+        $re = $vx->request_post($url,$json);
+        echo $re;
+    }
+
+    function adminOpenidSend(Request $request){
+        $openid = rtrim($request->collector,',');
+        $openid = explode(',',$openid);
+        $openid = json_encode($openid);
+        $json = "{
+   \"touser\":$openid,
+    \"msgtype\": \"text\",
+    \"text\": { \"content\": '$request->contents'}
+}";
+        echo $json;die;
+        $token = Vx::readAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=$token";
+        $vx = new Vx();
+        $re = $vx->request_post($url,$json);
+        echo $re;
+    }
+
+    function bindUser(Request $request){
+        $openid = rtrim($request->collector,',');
+        $openid = explode(',',$openid);
+        $openid = json_encode($openid);
+        $tagid = $request->tagid;
+        $token = Vx::readAccessToken();
+        $json = "{   
+    \"openid_list\" : 
+    $openid
+       ,   
+    \"tagid\" : $tagid
+ }";
+        $url = "https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token=$token";
+        $vx = new Vx();
+        $re = $vx->request_post($url,$json);
+        echo $re;
+    }
+
+    function getUserInTag(){
+        $json = "{   \"tagid\" : 100}";
+        $token = Vx::readAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token=$token";
+        $vx = new Vx();
+        $re = $vx->request_post($url,$json);
+        echo $re;
+    }
+
+    function personalMenu(){
+        $json = "{
+    \"button\": [
+        {
+            \"type\": \"click\", 
+            \"name\": \"music~\", 
+            \"key\": \"V1001_TODAY_MUSIC\"
+        }, 
+        {
+            \"name\": \"菜单\", 
+            \"sub_button\": [
+                {
+                    \"type\": \"view\", 
+                    \"name\": \"搜索\", 
+                    \"url\": \"http://www.soso.com/\"
+                }, 
+                {
+                    \"type\": \"miniprogram\", 
+                    \"name\": \"wxa\", 
+                    \"url\": \"http://mp.weixin.qq.com\", 
+                    \"appid\": \"wx286b93c14bbf93aa\", 
+                    \"pagepath\": \"pages/lunar/index\"
+                }, 
+                {
+                    \"type\": \"click\", 
+                    \"name\": \"赞一下我们\", 
+                    \"key\": \"V1001_GOOD\"
+                }
+            ]
+        }
+    ], 
+    \"matchrule\": {
+        \"tag_id\": \"101\", 
+    }
+}";
+        $token = Vx::readAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=$token";
+        $vx = new Vx();
+        $re = $vx->request_post($url,$json);
+        echo $re;
+    }
+
+    function createTag(){
+        $json = "{   \"tag\" : {     \"name\" : \"hello\"} }";
+        $token = Vx::readAccessToken();
+        $vx = new Vx();
+        $url = "https://api.weixin.qq.com/cgi-bin/tags/create?access_token=$token";
+        $re = $vx->request_post($url,$json);
+        echo $re;
+    }
+
+    public function groupSend(){
+        $token = TestController::readAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=$token";
+        $vx = new Vx();
+        $data = $this->getList();
+        $re = $vx->request_post($url,$data);
+        dd($re);
     }
 
     function chose(){
@@ -78,6 +278,13 @@ class AdminController extends Controller
         return $re;
     }
 
+    function deleteMenu(){
+        $access_token = Vx::readAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=".$access_token;
+        $vx = new Vx();
+        $result = $vx->request_post($url,'');
+    }
+
     function addMenu(){
         $data = Menu::where('pid',0)->get();
         return view("admin.addMenu",['data'=>$data]);
@@ -96,7 +303,9 @@ class AdminController extends Controller
         $vx = new Vx();
 
         if($material){
-            $picurl = $vx->uploadFile($material);
+            $data = $vx->uploadFile($material);
+            $picurl = $data[1];
+            $media_id = $data[0];
         }
         $type = $request->type;
         $title = $request->title;
@@ -104,6 +313,7 @@ class AdminController extends Controller
         $describe = $request->describe;
         $obj = new Subscribe();
         $obj->url = $url;
+        $obj->media_id = $media_id;
         $obj->type = $type;
         $obj->title = $title;
         $obj->describe = $describe;

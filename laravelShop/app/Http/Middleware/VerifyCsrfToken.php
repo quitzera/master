@@ -40,5 +40,6 @@ class VerifyCsrfToken extends Middleware
         ,'return'
         ,'pay'
         ,'do'
+        ,'VxLogin'
     ];
 }

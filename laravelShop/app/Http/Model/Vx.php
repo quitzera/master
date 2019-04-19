@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\DB;
+use App\Http\Model\Order;
 
 class Vx
 {
@@ -34,6 +35,7 @@ class Vx
         $vx = new Vx();
         $type = $file->getClientMimeType();
         $type = $vx->changeType(explode('/',$type)[0]);
+//        $type = 'thumb';
         $ext = $file->getClientOriginalExtension();
         $path = $file->getRealPath();
         $newFileName = date("Ymd")."/".mt_rand(1000,9999).".".$ext;
@@ -43,10 +45,10 @@ class Vx
             'media'=>new \CURLFile(realpath($imgpath))
         );
         $token = Vx::readAccessToken();
-        $url = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=$token&type=$type";
+        $url = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=$token&type=$type";
         $re = $vx->request_post($url,$arr);
         $media_id = json_decode($re,true)['media_id'];
-        return url("/uploads/".$newFileName);
+        return [$media_id,url("/uploads/".$newFileName)];
     }
 
     function text($info,$FromUserName,$ToUserName){
@@ -59,6 +61,52 @@ class Vx
 </xml>";
         $time = time();
         return sprintf($textTpl,$FromUserName,$ToUserName,$time,'text',$info->content);
+    } function VxLogin($info,$FromUserName,$ToUserName){
+        $textTpl = "<xml>
+  <ToUserName><![CDATA[%s]]></ToUserName>
+  <FromUserName><![CDATA[%s]]></FromUserName>
+  <CreateTime>%s</CreateTime>
+  <MsgType><![CDATA[%s]]></MsgType>
+  <Content><![CDATA[%s]]></Content>
+</xml>";
+        $time = time();
+    $appid = env('VXAPPID');
+    $uri = urlencode("http://aulei521.com/testByWangyan.php");
+    $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$uri&response_type=code&scope=snsapi_userinfo&state=123123#wechat_redirect";
+    return sprintf($textTpl,$FromUserName,$ToUserName,$time,'text',$url);
+    }
+
+    function getTemplet($content,$to){
+        $rule = "/(\d+)$/";
+        preg_match($rule,$content,$no);
+        $info = Order::where('order_no',$no)->first();
+        if(empty($info)){
+            echo '';
+        }
+        $data = [
+            'touser'=>"$to"
+            ,'template_id'=>"IGW7xV6DOs_MLZ2KImOxdWloB6xdNtHfDLLPpVezPbA",
+            'data'=>[
+                'order_no'=>[
+                    "value"=>"$info->order_no",
+                       "color"=>"#173177"
+                ], 'status'=>[
+                    "value"=>"$info->pay_status",
+                       "color"=>"#173177"
+                ], 'created_at'=>[
+                    "value"=>"$info->created_at",
+                       "color"=>"#173177"
+                ], 'total'=>[
+                    "value"=>"$info->order_amount",
+                       "color"=>"#173177"
+                ]
+            ]
+        ];
+        $json = json_encode($data,JSON_UNESCAPED_UNICODE);
+        $token = self::readAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=$token";
+        $re = $this->request_post($url,$json);
+        echo $re;
     }
 
     function turing($text,$FromUserName,$ToUserName){

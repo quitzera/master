@@ -1,3 +1,3 @@
 <?php return array (
-  'type' => 'news',
+  'type' => 'text',
 ); ?>

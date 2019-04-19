@@ -1,0 +1,1 @@
+<img src="/images/0.jpg">

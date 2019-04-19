@@ -12,12 +12,12 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <link id='fuck' rel="stylesheet" href="css/mui.min_1.css">
-    <link rel="stylesheet" href="{{url('layui/css/layui.css')}}">
-    <link rel="stylesheet" href="{{url('layui/css/layui.css')}}">
+    <link rel="stylesheet" href="{{url('layui/layui/css/layui.css')}}">
+    <link rel="stylesheet" href="{{url('layui/layui/css/layui.css')}}">
     <link href="{{url('css/comm.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('css/index.css')}}" rel="stylesheet" type="text/css" />
     <script src="{{url('jquery-3.2.1.min.js')}}"></script>
-    <script src="{{url('layui/layui.js')}}"></script>
+    <script src="{{url('layui/layui/layui.js')}}"></script>
     <script src="{{url('js/all.js')}}"></script>
     <script src="{{url('js/index.js')}}"></script>
     <script src="{{url('js/lazyload.min.js')}}"></script>

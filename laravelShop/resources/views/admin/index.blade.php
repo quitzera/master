@@ -275,6 +275,11 @@
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>添加菜单</cite>
                         </a>
+                    </li>  <li>
+                        <a _href="/UserList">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>关注列表</cite>
+                        </a>
                     </li> <li>
                         <a _href="/chose">
                             <i class="iconfont">&#xe6a7;</i>

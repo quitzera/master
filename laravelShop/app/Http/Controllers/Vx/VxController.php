@@ -23,6 +23,7 @@ use App\Http\Controllers\Extend\alipay\wappay\service\AlipayTradeService;
 use App\Http\Controllers\Extend\alipay\wappay\buildermodel\AlipayTradeWapPayContentBuilder;
 use App\Http\Model\Vx;
 use App\Http\Model\Subscribe;
+use App\Http\Controllers\TestController;
 class VxController extends Controller
 {
     function do(){
@@ -35,13 +36,25 @@ class VxController extends Controller
         $FromUserName = $postObj->FromUserName;
         $ToUserName = $postObj->ToUserName;
         $info = Subscribe::where('type',config('vx.type'))->orderBy('s_id','desc')->first();
-        $msgtype = $info->type;
+        $msgtype = isset($info->type)?$info->type:'';
         $vx =  new Vx();
+        if($postObj->MsgType == "event"){
+            if($postObj->Event == "subscribe"){
+                $resultStr = $vx->$msgtype($info,$FromUserName,$ToUserName);
+                echo $resultStr;
+                TestController::whenSubscribe($postObj);
+            }
+        }
         if($postObj->Content == "回复"){
             $resultStr = $vx->$msgtype($info,$FromUserName,$ToUserName);
             echo $resultStr;
         }else if(explode(' ',$postObj->Content)[0] == "商品"){
             $resultStr = $vx->returnGoodsInfo(explode(' ',$postObj->Content)[1],$FromUserName,$ToUserName);
+            echo $resultStr;
+        }else if(strstr($postObj->Content,'订单')){
+            $vx->getTemplet($postObj->Content,$FromUserName);
+        }else if($postObj->Content == "登录"){
+            $resultStr = $vx->VxLogin($info,$FromUserName,$ToUserName);
             echo $resultStr;
         }else{
             $resultStr = $vx->turing($postObj->Content, $FromUserName, $ToUserName);

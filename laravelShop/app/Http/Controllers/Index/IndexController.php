@@ -475,12 +475,17 @@ class IndexController extends Controller
         $tel = $request->tel;
         $pwd = $request->pwd;
         $code = $request->code;
+        $openid = $request->openid;
         if($code != session('captcha')){
             $data = ['font'=>'信息有误','code'=>2];
             echo json_encode($data);
             die;
         }
         $info = User::where('user_email',$tel)->first();
+        if($info->openid == ''){
+            $info->openid = $openid;
+            $info->save();
+        }
         if(!$info){
             $data = ['font'=>'信息有误','code'=>2];
         }else{
