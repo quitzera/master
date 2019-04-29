@@ -110,6 +110,7 @@
             </ul>
         </div>
         <!--导航-->
+		<button class="weui-btn weui-btn_plain-primary" id="onMenuShareAppMessage">我的位置</button>
         <div class="success-tip">
         	<div class="left-icon"></div>
         	<ul class="right-con">
@@ -182,6 +183,38 @@
             <div class="loading clearfix"><b></b>正在加载</div>
 		</div>
 		<script>
+			wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
+				$("#onMenuShareAppMessage").click(function () {
+					wx.getLocation({
+						type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+						success: function (res) {
+							var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+							var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+							var speed = res.speed; // 速度，以米/每秒计
+							var accuracy = res.accuracy; // 位置精度
+						}
+					});
+					// wx.updateAppMessageShareData({
+					// 	title: 'Wdnmd', // 分享标题
+					// 	desc: 'Mr.Wdnmd', // 分享描述
+					// 	link: document.URL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+					// 	imgUrl: 'http://39.107.86.183/uploads/20190411/3893.jpg', // 分享图标
+					// 	success: function () {
+					// 		// 设置成功
+					// 		alert('分享成功')
+					// 	}
+					// })
+				})
+				wx.updateAppMessageShareData({
+					title: '', // 分享标题
+					desc: '', // 分享描述
+					link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+					imgUrl: '', // 分享图标
+					success: function () {
+						// 设置成功
+					}
+				})
+			});
 			$(".m-block-header").hide();
 			$(function(){
 				$('#fuck').attr('href','');

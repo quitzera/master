@@ -35,18 +35,45 @@ class VxController extends Controller
         $postObj = simplexml_load_string($postStr);
         $FromUserName = $postObj->FromUserName;
         $ToUserName = $postObj->ToUserName;
+        $fileName = 'log/'.date('Ymd').'.txt';
+        $event = empty((string)$postObj->Event)?'':(string)$postObj->Event;
+        $content = empty((string)$postObj->Content)?'':(string)$postObj->Content;
+        $arr = [
+            'openId' => (string)$FromUserName
+            ,'msgType' => (string)$postObj->MsgType
+            ,'event' => $event
+            ,'content' => $content
+        ];
+        $str = serialize($arr)."\r\n";
+        file_put_contents($fileName,$str,FILE_APPEND);
         $info = Subscribe::where('type',config('vx.type'))->orderBy('s_id','desc')->first();
         $msgtype = isset($info->type)?$info->type:'';
         $vx =  new Vx();
-        if($postObj->MsgType == "event"){
+        if($postObj->MsgType == 'image'){
+            $re = Vx::saveImage($postObj->PicUrl);
+            $re = $re?'收到！':'啥啥啥?';
+            $resultStr = $vx->test($re,$FromUserName,$ToUserName);
+            echo $resultStr;
+        }else if($postObj->MsgType == "event"){
             if($postObj->Event == "subscribe"){
-                $resultStr = $vx->$msgtype($info,$FromUserName,$ToUserName);
+                $resultStr = $vx->bindAccess($FromUserName,$ToUserName);
                 echo $resultStr;
-                TestController::whenSubscribe($postObj);
-            }
+//                TestController::whenSubscribe($postObj);
+            }else if($postObj->Event == "CLICK"){
+                if($postObj->EventKey == "newGoods"){
+                    $resultStr = $vx->newGoods($FromUserName,$ToUserName);
+                    echo $resultStr;
+                }
+            }else if ($postObj->Event == "VIEW"){
+            $u_id = User::where('openid',(string)$FromUserName)->first()->user_id;
+            session(['u_id'=>$u_id]);
         }
-        if($postObj->Content == "回复"){
+        }
+        else if($postObj->Content == "回复"){
             $resultStr = $vx->$msgtype($info,$FromUserName,$ToUserName);
+            echo $resultStr;
+        }else if($postObj->Content == "最新商品"){
+            $resultStr = $vx->newGoods($FromUserName,$ToUserName);
             echo $resultStr;
         }else if(explode(' ',$postObj->Content)[0] == "商品"){
             $resultStr = $vx->returnGoodsInfo(explode(' ',$postObj->Content)[1],$FromUserName,$ToUserName);

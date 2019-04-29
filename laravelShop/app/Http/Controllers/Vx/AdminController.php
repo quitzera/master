@@ -25,14 +25,76 @@ use App\Http\Model\Vx;
 use App\Http\Model\Subscribe;
 use App\Http\Model\Menu;
 use App\Http\Controllers\TestController;
-
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
     function index(){
         return view('admin.index');
     }
-    
+
+    function selectMaterial(){
+        $vx = new Vx();
+        $vx->selectMaterial('image',0,20);
+    }
+
+    public function createCode()
+    {
+        include "phpqrcode.php";
+        $user_id = md5(time());
+        $url = "http://39.107.86.183/wxCode/$user_id";
+        \QRcode::png($url,'wxcode.png');
+        return view('admin.wxCode',['user_id'=>$user_id]);
+    }
+
+    function wxCode($id){
+        $appid = env('VXAPPID');
+        $uri = urlencode("http://aulei521.com/wdnmd.php");
+        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$uri&response_type=code&scope=snsapi_userinfo&state=$id#wechat_redirect";
+        return redirect($url);
+    }
+
+    function status(Request $request){
+        $info = DB::table("wxCode")->where('user_id',$request->user_id)->first();
+        if(!$info){
+            return 1;
+        }else if($info->status == 2){
+            return $info->status;
+        }else{
+            return $info->openid;
+        }
+    }
+
+    function wdnmd(Request $request){
+        $user_id = $request->user_id;
+        $openid = $request->openid;
+        $where = [
+            'openid'=>$openid
+        ];
+        $info = DB::table('wxCode')->where($where)->first();
+        if(!$info){
+            $data = [
+                'openid'=>$openid
+                ,'user_id'=>$user_id
+                ,'status'=>2
+            ];
+            DB::table('wxCode')->insert($data);
+        }
+        return view("admin.confirm",['openid'=>$openid]);
+    }
+
+    function confirm(Request $request){
+        $openid = $request->openid;
+        $re = DB::table('wxCode')->where('openid',$openid)->update(['status'=>3]);
+        return $re;
+    }
+
+    function saveInfo($openid){
+        $u_id = User::where('openid',$openid)->first()->user_id;
+        session(['u_id'=>$u_id]);
+        return redirect("/");
+    }
+
     function VxLogin(Request $request){
         $code = $request->code;
         $appid = env('VXAPPID');
@@ -82,6 +144,8 @@ class AdminController extends Controller
         return $data;
     }
 
+ 
+
     public function UserList(){
         $vx = new Vx();
         $token = Vx::readAccessToken();
@@ -116,11 +180,10 @@ class AdminController extends Controller
       \"tag_id\":$request->tagid
    },
    \"text\":{
-      \"content\":'$request->contents'
+      \"content\":\"$request->contents\"
    },
-    \"msgtype\":'text'
+    \"msgtype\":\"text\"
 }";
-        echo $json;die;
         $token = Vx::readAccessToken();
         $url = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=$token";
         $vx = new Vx();
@@ -135,9 +198,8 @@ class AdminController extends Controller
         $json = "{
    \"touser\":$openid,
     \"msgtype\": \"text\",
-    \"text\": { \"content\": '$request->contents'}
+    \"text\": { \"content\": \"$request->contents\"}
 }";
-        echo $json;die;
         $token = Vx::readAccessToken();
         $url = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=$token";
         $vx = new Vx();
@@ -330,5 +392,30 @@ class AdminController extends Controller
 
     function defineMenu(){
         return view("admin.defineMenu");
+    }
+
+    function accept(Request $request){
+        $u_id = User::where('openid',$request->openid)->first()->user_id;
+        session(['u_id'=>$u_id]);
+        echo "<script>location.href = '/'</script>";
+    }
+
+    static function saveImage(Request $request) {
+        $path = $request->path;
+        $image_name = $newFileName = date("Ymd")."/".mt_rand(1000,9999).".".'jpg';
+        $ch = curl_init ($path);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+        $img = curl_exec ($ch);
+        curl_close ($ch);
+//$image_name就是要保存到什么路径,默认只写文件名的话保存到根目录
+        $re = Storage::disk('uploads')->put($image_name,$img);
+    }
+
+    function selectMenu(){
+        $token = Vx::readAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=$token";
+        $re = file_get_contents($url);
+        echo $re;
     }
 }

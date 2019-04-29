@@ -1,0 +1,1 @@
+a:4:{s:6:"openId";s:28:"oxXMJ5xx_o3UL81EZUA18JtBVBMc";s:7:"msgType";s:5:"event";s:5:"event";s:17:"MASSSENDJOBFINISH";s:7:"content";s:0:"";}

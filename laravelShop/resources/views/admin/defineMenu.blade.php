@@ -63,11 +63,19 @@
                         var name = $(this).find(".name").val();
                         var key = $(this).find(".key").val();
                         var type = $(this).find(".type").val();
-                        sub_button[flag2] = {name:name,type:type,url:key}
+                        if(type == 'click'){
+                            sub_button[flag2] = {name:name,type:type,key:key}
+                        }else if(type == 'view'){
+                            sub_button[flag2] = {name:name,type:type,url:key}
+                        }
                         flag2 ++
                     })
                 }
-                total[flag] = {name:name,type:type,key:key,sub_button:sub_button}
+                if(type == 'click'){
+                    total[flag] = {name:name,type:type,key:key,sub_button:sub_button}
+                }else if(type == 'view'){
+                    total[flag] = {name:name,type:type,url:key,sub_button:sub_button}
+                }
                 flag ++
             })
             var total = JSON.stringify(total)

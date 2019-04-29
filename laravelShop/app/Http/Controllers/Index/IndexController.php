@@ -25,11 +25,11 @@ use App\Http\Controllers\Extend\alipay\wappay\buildermodel\AlipayTradeWapPayCont
 class IndexController extends Controller
 {
     //
-    public function Index()
+    public function Index(Request $request)
     {
         $data = Goods::where('is_new',1)->limit(2)->get();
         $hot = Goods::where('is_hot',1)->limit(4)->get();
-        return view('Index',['data'=>$data,'hot'=>$hot,'type'=>1]);
+        return view('Index',['data'=>$data,'hot'=>$hot,'type'=>1,'signPackage'=>$request->signPackage]);
     }
 
     public function do(){
@@ -55,10 +55,10 @@ class IndexController extends Controller
         }
     }
 
-    public function detail($id){
+    public function detail($id,Request $request){
         $info = Goods::find($id);
         $info->goods_imgs = explode('|',rtrim($info->goods_imgs,'|'));
-        return view('shopcontent',['info'=>$info,'type'=>2]);
+        return view('shopcontent',['info'=>$info,'type'=>2,'signPackage'=>$request->signPackage]);
     }
 
     public function share()
@@ -117,7 +117,7 @@ class IndexController extends Controller
 
 
 
-    function return(Request $request){
+    function return_(Request $request){
         if($request->request){
             return true;
         }else{
@@ -377,10 +377,10 @@ class IndexController extends Controller
 
     }
 
-    function cart(){
+    function cart(Request $request){
         $goods = Goods::where('is_hot',1)->limit(4,0)->get();
         $data = Cart::where(['user_id'=>session('u_id'),'cart_status'=>1])->join('shop_goods','shop_goods.goods_id','=','shop_cart.goods_id')->get();
-        return view('shopcart',['data'=>$data,'type'=>4,'goods'=>$goods]);
+        return view('shopcart',['data'=>$data,'type'=>4,'goods'=>$goods,'signPackage'=>$request->signPackage]);
     }
 
     function cartDel(Request $request){
@@ -411,8 +411,16 @@ class IndexController extends Controller
         return view('set',['type'=>5]);
     }
 
-    function login(){
-        return view('login',['type'=>5]);
+    function login(Request $request){
+        $appid = env('VXAPPID');
+        $uri = urlencode("http://aulei521.com/accept.php");
+        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$uri&response_type=code&scope=snsapi_userinfo&state=123123#wechat_redirect";
+        if(!isset($request->openid)){
+            $openid = '';
+        }else{
+            $openid = $request->openid;
+        }
+        return view("login",['openid'=>5,'type'=>5,'url'=>$url,'signPackage'=>$request->signPackage]);
     }
 
     function telUnique(Request $request){
@@ -475,23 +483,26 @@ class IndexController extends Controller
         $tel = $request->tel;
         $pwd = $request->pwd;
         $code = $request->code;
-        $openid = $request->openid;
         if($code != session('captcha')){
             $data = ['font'=>'信息有误','code'=>2];
             echo json_encode($data);
             die;
         }
         $info = User::where('user_email',$tel)->first();
-        if($info->openid == ''){
-            $info->openid = $openid;
-            $info->save();
-        }
+
         if(!$info){
             $data = ['font'=>'信息有误','code'=>2];
         }else{
             if($pwd != decrypt($info->user_pwd)){
                 $data = ['font'=>'信息有误','code'=>2];
             }else{
+                if($info->openid == ''){
+                    if(!empty($request->openid)){
+                        $openid = $request->openid;
+                        $info->openid = $openid;
+                        $info->save();
+                    }
+                }
                 $data = ['font'=>'登录成功','code'=>1];
                 session(['u_id'=>$info->user_id]);
             }

@@ -1,4 +1,4 @@
-﻿@extends('master')
+@extends('master')
 @section('content')
     <link href="css/comm.css" rel="stylesheet" type="text/css" />
     <link href="css/login.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
             <a id="sub" href="javascript:;" class="orangeBtn loginBtn">登录</a>
         </div>
         <div class="forget">
-            <a href="https://m.1yyg.com/v44/passport/FindPassword.do">忘记密码？</a><b></b><a href="https://m.1yyg.com/v44/passport/register.do?forward=https%3a%2f%2fm.1yyg.com%2fv44%2fmember%2f">新用户注册</a>
+            <a href="https://m.1yyg.com/v44/passport/FindPassword.do">忘记密码？</a> <a href="{{$url}}">微信登录</a><b></b><a href="https://m.1yyg.com/v44/passport/register.do?forward=https%3a%2f%2fm.1yyg.com%2fv44%2fmember%2f">新用户注册</a>
         </div>
     </div>
     <div class="oter_operation gray9" style="display: none;">
@@ -51,7 +51,7 @@
                     var code = $('#code').val();
                     $.ajax({
                         url:'/loginDo',
-                        data:{tel:tel,pwd:pwd,code:code}
+                        data:{tel:tel,pwd:pwd,code:code,openid:"{{$openid}}"}
                         ,method:"post"
                         ,success:function(res){
                            if(res.code == 1){

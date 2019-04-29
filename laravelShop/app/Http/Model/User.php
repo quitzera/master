@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     //
-    protected $table = "user";
+    protected $table = "shop_user";
 
-    protected $primaryKey = "u_id";
+    protected $primaryKey = "user_id";
 
     public $timestamps = false;
 }

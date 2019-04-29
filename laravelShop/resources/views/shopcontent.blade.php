@@ -211,8 +211,41 @@
             randomize: false,   //是否随机幻切换   
             animationLoop: true   //是否循环滚动  
         });  
-        setTimeout($('.flexslider img').fadeIn()); 
-
+        setTimeout($('.flexslider img').fadeIn());
+        wx.config({
+            debug: false,
+            appId: "{{$signPackage['appId']}}",
+            timestamp: "{{$signPackage['timestamp']}}",
+            nonceStr: "{{$signPackage['nonceStr']}}",
+            signature: "{{$signPackage['signature']}}",
+            jsApiList: [
+                // 所有要调用的 API 都要加到这个列表中
+                'updateTimelineShareData'
+                ,'onMenuShareWeibo'
+                ,'updateAppMessageShareData'
+                ,'getLocation'
+                ,'openLocation'
+                ,'onMenuShareTimeline'
+            ]
+        });
+        wx.ready(function () {
+            wx.onMenuShareTimeline({
+                title: "{{$info->goods_name}}", // 分享标题
+                link: document.URL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: "http://39.107.86.183/uploads/{{$info->goods_img}}",
+                success: function () {
+                    // 用户点击了分享后执行的回调函数
+                },
+            })
+            wx.updateTimelineShareData({
+                title: "{{$info->goods_name}}", // 分享标题
+                link: document, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: "http://39.107.86.183/uploads/{{$info->goods_img}}", // 分享图标
+                success: function () {
+                    // 设置成功
+                }
+            })
+        })
         // 参与记录、历史获得者左右切换
         // $('.listtab a').click(function(){
         //     $(this).addClass('current').siblings('a').removeClass('current');

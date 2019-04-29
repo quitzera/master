@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\DB;
 use App\Http\Model\Order;
+use App\Http\Model\User;
+use App\Http\Model\Goods;
 
 class Vx
 {
@@ -30,6 +32,42 @@ class Vx
         return $data;
     }
 
+    function test($content,$FromUserName,$ToUserName){
+        $textTpl = "<xml>
+  <ToUserName><![CDATA[%s]]></ToUserName>
+  <FromUserName><![CDATA[%s]]></FromUserName>
+  <CreateTime>%s</CreateTime>
+  <MsgType><![CDATA[%s]]></MsgType>
+  <Content><![CDATA[%s]]></Content>
+</xml>";
+        $time = time();
+        return sprintf($textTpl,$FromUserName,$ToUserName,$time,'text',$content);
+    }
+
+    static function saveImage($path) {
+        $image_name = $newFileName = date("Ymd")."/".mt_rand(1000,9999).".".'jpg';
+        $ch = curl_init ($path);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+        $img = curl_exec ($ch);
+        curl_close ($ch);
+//$image_name就是要保存到什么路径,默认只写文件名的话保存到根目录
+        $re = Storage::disk('uploads')->put($image_name,$img);
+        return $re;
+    }
+
+    function selectMaterial($type,$offset,$count){
+        $data = [];
+        $data['type'] = $type;
+        $data['offset'] = $offset;
+        $data['count'] = $count;
+        $token = Vx::readAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=$token";
+        $vx = new Vx();
+        $re = $vx->request_post($url,json_encode($data));
+        echo $re;
+    }
+
     function uploadFile($file){
 
         $vx = new Vx();
@@ -51,6 +89,65 @@ class Vx
         return [$media_id,url("/uploads/".$newFileName)];
     }
 
+    function bindAccess($fromUserName,$toUserName){
+        $flag = User::where('openid',$fromUserName)->count();
+        if($flag){
+            $content = "欢迎回来";
+        }else{
+            $content = "欢迎使用，点我去绑定账号 http://39.107.86.183/login?openid=$fromUserName";
+        }
+        $textTpl = "<xml>
+  <ToUserName><![CDATA[%s]]></ToUserName>
+  <FromUserName><![CDATA[%s]]></FromUserName>
+  <CreateTime>%s</CreateTime>
+  <MsgType><![CDATA[%s]]></MsgType>
+  <Content><![CDATA[%s]]></Content>
+</xml>";
+        $time = time();
+        return sprintf($textTpl,$fromUserName,$toUserName,$time,'text',$content);
+    }
+
+    function newGoods($FromUserName,$ToUserName){
+        $data = Goods::orderBy('goods_id','desc')->get()->toArray();
+        $textTpl = "<xml>
+  <ToUserName><![CDATA[%s]]></ToUserName>
+  <FromUserName><![CDATA[%s]]></FromUserName>
+  <CreateTime>%s</CreateTime>
+  <MsgType><![CDATA[%s]]></MsgType>
+  <ArticleCount>5</ArticleCount>
+  <Articles>
+    <item>
+      <Title><![CDATA[%s]]></Title>
+      <Description><![CDATA[%s]]></Description>
+      <PicUrl><![CDATA[%s]]></PicUrl>
+      <Url><![CDATA[%s]]></Url>
+    </item> <item>
+      <Title><![CDATA[%s]]></Title>
+      <Description><![CDATA[%s]]></Description>
+      <PicUrl><![CDATA[%s]]></PicUrl>
+      <Url><![CDATA[%s]]></Url>
+    </item> <item>
+      <Title><![CDATA[%s]]></Title>
+      <Description><![CDATA[%s]]></Description>
+      <PicUrl><![CDATA[%s]]></PicUrl>
+      <Url><![CDATA[%s]]></Url>
+    </item> <item>
+      <Title><![CDATA[%s]]></Title>
+      <Description><![CDATA[%s]]></Description>
+      <PicUrl><![CDATA[%s]]></PicUrl>
+      <Url><![CDATA[%s]]></Url>
+    </item> <item>
+      <Title><![CDATA[%s]]></Title>
+      <Description><![CDATA[%s]]></Description>
+      <PicUrl><![CDATA[%s]]></PicUrl>
+      <Url><![CDATA[%s]]></Url>
+    </item>
+  </Articles>
+</xml>";
+        $time = time();
+        return sprintf($textTpl,$FromUserName,$ToUserName,$time,'news',$data[0]['goods_name'],$data[0]['self_price'],"http://39.107.86.183/uploads/{$data[0]['goods_img']}","http://39.107.86.183/detail/{$data[0]['goods_id']}",$data[1]['goods_name'],$data[1]['self_price'],"http://39.107.86.183/uploads/{$data[1]['goods_img']}","http://39.107.86.183/detail/{$data[1]['goods_id']}",$data[2]['goods_name'],$data[2]['self_price'],"http://39.107.86.183/uploads/{$data[2]['goods_img']}","http://39.107.86.183/detail/{$data[2]['goods_id']}",$data[3]['goods_name'],$data[3]['self_price'],"http://39.107.86.183/uploads/{$data[3]['goods_img']}","http://39.107.86.183/detail/{$data[3]['goods_id']}",$data[4]['goods_name'],$data[4]['self_price'],"http://39.107.86.183/uploads/{$data[4]['goods_img']}","http://39.107.86.183/detail/{$data[4]['goods_id']}");
+    }
+
     function text($info,$FromUserName,$ToUserName){
         $textTpl = "<xml>
   <ToUserName><![CDATA[%s]]></ToUserName>
@@ -61,7 +158,9 @@ class Vx
 </xml>";
         $time = time();
         return sprintf($textTpl,$FromUserName,$ToUserName,$time,'text',$info->content);
-    } function VxLogin($info,$FromUserName,$ToUserName){
+    }
+
+    function VxLogin($info,$FromUserName,$ToUserName){
         $textTpl = "<xml>
   <ToUserName><![CDATA[%s]]></ToUserName>
   <FromUserName><![CDATA[%s]]></FromUserName>
